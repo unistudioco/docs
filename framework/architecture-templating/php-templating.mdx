@@ -69,25 +69,24 @@ require __DIR__ . '/../page-templates/base.php';
 
 `src/page-templates/base.php` acts as the master HTML shell. Every page extends it natively. It handles the `<head>`, metadata, linking the CSS/JS bundles, and injecting the `$content` variable correctly.
 
-```php
-// Inside base.php
+```php base.php
 <!DOCTYPE html>
 <html lang="<?= $site['lang'] ?? 'en' ?>">
-<head>
-    <title><?= htmlspecialchars($page_title) ?></title>
-    <!-- ... -->
-</head>
-<body class="<?= htmlspecialchars($body_class) ?>">
+    <head>
+        <title><?= htmlspecialchars($page_title) ?></title>
+        <!-- ... -->
+    </head>
+    <body class="<?= htmlspecialchars($body_class) ?>">
 
-  <!-- Native framework headers mapping automatically -->
-  <?php get_template_part('header'); ?>
+      <!-- Native framework headers mapping automatically -->
+      <?php get_template_part('header'); ?>
 
-  <main id="main-content">
-    <?php echo $content ?? ''; ?>
-  </main>
+      <main id="main-content">
+        <?php echo $content ?? ''; ?>
+      </main>
 
-  <?php get_template_part('footer'); ?>
-  
-</body>
+      <?php get_template_part('footer'); ?>
+      
+    </body>
 </html>
 ```

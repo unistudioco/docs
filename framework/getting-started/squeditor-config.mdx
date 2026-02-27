@@ -1,0 +1,173 @@
+---
+title: "Configuration File"
+description: "Understanding and configuring your project."
+---
+
+Every Squeditor project runs entirely based on its local `squeditor.config.js` file. This is the single source of truth that tells the core framework engine what CSS/JS to bundle, what pages to crawl, and how to distribute the final website.
+
+Here is a full breakdown of every available configuration option.
+
+---
+
+## Core Settings
+
+Define the core identity of your project and link it to the framework engine.
+
+```javascript
+module.exports = {
+  // Path referencing the core framework folder (usually '../squeditor')
+  framework: '../squeditor',
+  
+  // The name of your project (used for logging and zip naming)
+  name: 'Squeditor Showcase',
+  
+  // Your project's internal version
+  version: '1.0.0',
+  
+  // The primary theme to load during local 'npm run dev' development
+  activeTheme: 'showcase',
+```
+
+---
+
+## Component Selection
+
+The `components` array is the most critical part of Squeditor's architecture. It explicitly defines which UIKit3 modules should be compiled into your final `uikit-components.css` and `uikit-components.js` files.
+
+If a component is not in this list, its code will **never** load in the browser, keeping your site incredibly fast.
+
+```javascript
+  components: [
+    'sticky',
+    'grid',
+    'nav',
+    'modal',
+    'accordion',
+    'tabs',
+    'offcanvas',
+    'slider',
+    'scrollspy',
+    // add or remove exact UIkit3 module names here
+  ],
+```
+
+---
+
+## GSAP Integration
+
+If your project utilizes the GreenSock Animation Platform (GSAP), configure the plugins and initialization scripts here.
+
+```javascript
+  gsap: {
+    // Exact GSAP plugins to register (ScrollTrigger, SplitText, etc.)
+    plugins: ['ScrollTrigger', 'SplitText', 'Flip', 'Observer'],
+    
+    // Path to the core initialization script
+    initScript: 'src/assets/js/gsap-init.js',
+    
+    // Path to advanced module loaders (like custom cursors)
+    advancedScript: 'src/assets/js/gsap-advanced.js',
+  },
+```
+
+---
+
+## Build Server & Snapshot Routing
+
+Squeditor uses Vite for asset bundling and a PHP endpoint crawler for static HTML generation.
+
+```javascript
+  // Where compiled assets should be placed within the project
+  output: {
+    css: 'src/assets/css',
+    js: 'src/assets/js',
+  },
+
+  // Local development PHP server port
+  devServer: { port: 3001, root: 'src' },
+
+  // The Static HTML Crawler configuration
+  snapshot: {
+    baseUrl: 'http://127.0.0.1:3001',
+    outputDir: 'dist',
+    
+    // Automatically rewrite all <a href="page.php"> to <a href="page.html">
+    rewriteExtension: true,
+
+    // The explicit list of PHP routes the crawler must visit and convert to HTML
+    pages: [
+      '/', 
+      '/about.php', 
+      '/services.php', 
+      '/style-guide.php'
+    ],
+  },
+```
+
+---
+
+## Multi-Theme Configuration
+
+Use the `themes` object to generate multiple distinct websites (with different styling and page routing) from the same codebase simultaneously during the `npm run build` process.
+
+```javascript
+  themes: {
+    'showcase': {
+      label: 'Showcase Theme',
+      bodyClass: 'theme-showcase',
+      scss: 'src/assets/scss/themes/_showcase.scss',
+      pages: ['/', '/about.php', '/services.php'],
+      distSubfolder: '', // Outputs directly to /dist/
+    },
+    'agency': {
+      label: 'Agency Theme',
+      bodyClass: 'theme-agency',
+      scss: 'src/assets/scss/themes/_agency.scss',
+      pages: ['/gsap-demo.php'],
+      distSubfolder: 'demo-agency', // Outputs to /dist/demo-agency/
+    }
+  },
+```
+
+---
+
+## Media Optimization
+
+Squeditor includes an automated pipeline for compressing images and generating blurred placeholders natively during the build sequence.
+
+```javascript
+  media: {
+    // Compresses large files into optimized web-ready formats
+    optimize: {
+      enabled: true,
+      imageQuality: 80, // WebP/JPEG quality (0-100)
+      videoQuality: 28, // CRF for MP4 (Lower is better, 23-28 is standard)
+      include: ['**/*.{jpg,jpeg,png,webp,gif,mp4,webm}'],
+      exclude: []
+    },
+    // Automatically creates tiny blurred background placeholders for lazy loading
+    blur: {
+      enabled: true,
+      amount: 20, // Blur radius
+      include: ['**/*.{jpg,jpeg,png,webp}', '**/*.{mp4,webm}'],
+      exclude: ['**/logos/**', '**/icons/**', '**/placeholder.png']
+    }
+  },
+```
+
+---
+
+## Distribution
+
+Configures how the final `dist/` folder is archived into a `.zip` file for client handoff, and dictates which CLI tool (`netlify` or `vercel`) publishes the temporary preview URL.
+
+```javascript
+  dist: {
+    // The name of the final deliverable zip file
+    zipName: 'squeditor-showcase.zip',
+    
+    // 'netlify' or 'vercel'
+    previewPlatform: 'netlify',
+  },
+};
+```

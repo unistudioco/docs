@@ -11,17 +11,14 @@ Squeditor provides an elegant Data Layer configuration model specifically for th
 
 The `src/config/site-config.php` file operates as your global configuration state. It is inherently loaded via the master `base.php` template. Any configuration set in `$site` is instantaneously available across all files.
 
-```php
+```php site-config.php
 <?php
-// src/config/site-config.php
-
 $site = [
     'name'        => 'My Project Name',
     'lang'        => 'en',
     'logo'        => '/assets/static/images/logo.svg',
     'description' => 'Default site meta description.',
     'url'         => 'https://myproject.com',
-
     'nav' => [
         ['label' => 'Home',     'url' => '/'],
         ['label' => 'About',    'url' => '/about.html'],
@@ -35,7 +32,7 @@ $site = [
 
 Inside `src/template-parts/header.php`, the `$site` variable seamlessly integrates dynamic navigation mapping.
 
-```php
+```php header.php
 <!-- Rendering the dynamic Logo and sitename securely -->
 <a href="/" class="sq--logo flex items-center gap-2">
   <img src="<?= htmlspecialchars($site['logo']) ?>" alt="<?= htmlspecialchars($site['name']) ?>" class="h-8">
@@ -50,7 +47,7 @@ To prevent large `.php` page files from becoming overly complicated to read, dec
 ### Declaring Data Arrays
 
 **Example: `src/data/team.php`**
-```php
+```php team.php
 <?php
 $team_members = [
     [
@@ -71,7 +68,7 @@ $team_members = [
 Require the data file manually on any page or specific section block you need exactly mapped. 
 
 **Example: `src/pages/about.php`**
-```php
+```php about.php
 <?php 
 // Map the array
 require_once __DIR__ . '/../data/team.php'; 

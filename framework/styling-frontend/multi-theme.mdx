@@ -3,14 +3,13 @@ title: "Multi-Theme Architecture"
 description: "How to run multiple visual identities concurrently within a single Squeditor project."
 ---
 
-Squeditor templates can support drastically different visual identities simultaneously using the nested `themes` configuration object. This is exceptionally useful when you need to showcase a single component system mapped into entirely different client aesthetics (e.g., an "Agency" layout vs. a "SaaS" layout).
+Squeditor templates can support drastically different visual identities simultaneously using the nested `themes` configuration object. This is exceptionally useful when you need to showcase a single component system mapped into entirely different client aesthetics or when you want to create multi-purpose templates.
 
 ## Configuration
 
 Instead of maintaining separate codebase forks, you declare targeted page arrays mapped directly to discrete SCSS override files within your `squeditor.config.js`.
 
-```javascript
-// squeditor.config.js
+```javascript squeditor.config.js
 
 module.exports = {
   // ...

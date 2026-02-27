@@ -17,13 +17,12 @@ Squeditor navigates the `dist/` directory and creates a clean `<project-name>-di
 
 Squeditor integrates directly with modern Node deployers (Netlify or Vercel). Upon generating the final ZIP deliverable, the script reads your deployment preference.
 
-In `squeditor.config.js`:
-```javascript
+```javascript squeditor.config.js
   // Distribution routing instructions
   dist: {
     zipName: 'my-project-dist.zip',
-    previewPlatform: 'netlify', // options: 'netlify' or 'vercel'
+    previewPlatform: 'vercel', // options: 'netlify' or 'vercel'
   },
 ```
 
-If set to `netlify`, the framework runs `netlify deploy --dir=dist --open`, which uploads the static flat HTML files to a temporary Edge URL and automatically launches it in your default web browser for immediate client review.
+If set to `vercel`, the framework runs `vercel deploy --dir=dist --open`, which uploads the static flat HTML files to a temporary Edge URL and automatically launches it in your default web browser for immediate client review.

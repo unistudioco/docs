@@ -65,6 +65,7 @@
             "pages": [
               "framework/getting-started/introduction",
               "framework/getting-started/quickstart",
+              "framework/getting-started/squeditor-config",
               "framework/getting-started/build-pipeline",
               "framework/getting-started/deployment"
             ]
@@ -136,7 +137,7 @@
         {
           "anchor": "Marketplace",
           "href": "https://squeditor.com/marketplace",
-          "icon": "book-open-cover"
+          "icon": "store"
         },
         {
           "anchor": "Blog",
