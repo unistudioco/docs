@@ -1,0 +1,44 @@
+---
+title: "Directional Marquee"
+description: "An infinite looping marquee that reverses direction when scrolling."
+---
+
+## Attribute: `data-sq-marquee`
+
+[View Demo](#)
+
+The Directional Marquee creates an infinite horizontal scrolling banner. It clones the content inside the wrapper to seamlessly loop. It observes scroll velocity, speeding up momentarily if the user scrolls quickly, and switches direction depending on whether the user scrolls up or down.
+
+## Usage
+
+Wrap the items in a container with the `data-sq-marquee` attribute.
+
+### Basic Example
+
+```html
+<div data-sq-marquee>
+  <span>Design</span>
+  <span>Development</span>
+  <span>Strategy</span>
+</div>
+```
+
+### Advanced Example
+
+```html
+<div data-sq-marquee="speed: 60; gap: 48; direction: right">
+  <span>Design</span>
+  <span>•</span>
+  <span>Development</span>
+  <span>•</span>
+  <span>Strategy</span>
+</div>
+```
+
+## Options
+
+| Option | Type | Default | Description |
+|---|---|---|---|
+| `speed` | number | `50` | The scrolling speed in pixels per second. |
+| `gap` | number | `40` | Gap between elements in pixels. |
+| `direction` | `'left'` or `'right'` | `'left'` | Initial scroll direction. |

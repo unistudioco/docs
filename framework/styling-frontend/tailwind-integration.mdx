@@ -1,0 +1,55 @@
+---
+title: "Tailwind Integration"
+description: "Syncing SCSS tokens directly inside Tailwind dynamically."
+---
+
+Squeditor uses **TailwindCSS** as its utility framework. However, a common issue when using SCSS architectures alongside Tailwind is syncing variables (like colors and fonts) so they are available in both `tailwindcss` classes and standard SCSS stylesheets.
+
+Squeditor bridges this natively in the templates.
+
+## Configuration Bridge
+
+Inside each project, the `tailwind.config.js` file is wired directly to resolve the deep SCSS properties. This ensures changes made in `src/assets/scss/_tokens.scss` propagate globally into standard `bg-primary`, `text-accent`, or `font-sans` classes.
+
+### The config file
+
+```javascript
+// tailwind.config.js
+
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    './src/**/*.php',
+    './src/**/*.html',
+  ],
+  theme: {
+    extend: {
+      colors: {
+        // Mirror AG tokens into Tailwind so devs can use both approaches
+        primary:   'var(--sq-color-primary)',
+        secondary: 'var(--sq-color-secondary)',
+        accent:    'var(--sq-color-accent)',
+      },
+      fontFamily: {
+        sans:  ['var(--sq-font-sans)'],
+        serif: ['var(--sq-font-serif)'],
+        mono:  ['var(--sq-font-mono)'],
+      },
+      spacing: {
+        // Add specific spacing overrides if necessary
+      },
+    },
+  },
+  plugins: [],
+}
+```
+
+## How It Works
+
+Because the variables evaluate at runtime in the browser as CSS variables:
+
+1. **SCSS defines the style:** `_tokens.scss` assigns `--sq-color-primary: #19191b;` to `:root`.
+2. **Tailwind maps the class:** The config maps `text-primary` to `color: var(--sq-color-primary);`.
+3. **The Browser renders:** The text is #19191b.
+
+If you generate a new theme override in `themes/_client.scss` that sets `--sq-color-primary: #00FF00;`, Tailwind instantly updates as well without needing to reconfigure the `tailwind.config.js` file.

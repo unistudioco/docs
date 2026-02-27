@@ -1,0 +1,68 @@
+---
+title: "Interactive Events"
+description: "Bind hover and click interactions directly to advanced timeline sequences."
+---
+
+# Interactive Trigger Events
+
+[View Demo](#)
+
+Squeditor allows integrating standalone UI events directly into powerful master GSAP timelines. Instead of writing separate JavaScript toggle events and custom listeners, use the `data-gsap-trigger` system to seamlessly orchestrate complex interactions directly in HTML.
+
+## Usage
+
+Define `data-gsap-trigger="hover"` or `data-gsap-trigger="click"` on any container element. The GSAP engine binds the appropriate listeners (e.g., `mouseenter`/`mouseleave` for hover, toggling for clicks).
+
+To define the animations triggered by the event, supply an array of GSAP parameters in the `data-gsap-trigger-anim` attribute.
+
+### Hover Event Timeline
+
+Hover triggers automatically `.play()` the timeline on `mouseenter` and safely `.reverse()` the timeline on `mouseleave`.
+
+```html
+<div class="card group cursor-pointer"
+     data-gsap-trigger="hover" 
+     data-gsap-trigger-anim="[
+         {selector: '.hover-glow', to: {opacity: 1, scale: 1.5}, duration: 0.6, ease: 'power2.out'},
+         {selector: '.animated-text', type: 'split', splitType: 'chars', from: {y: 0, opacity: 0.5}, to: {y: -20, scale: 1.1, opacity: 1}, stagger: 0.05, duration: 0.5, delay: 0.2, ease: 'power2.out', position: '<'}
+     ]">
+    
+    <!-- Child Elements -->
+    <div class="hover-glow opacity-0">...</div>
+    <div class="animated-text">Hover Engine</div>
+
+</div>
+```
+*Notice how target scoping works: we use `selector: '.animated-text'` inside the config so the parent container controls the child elements gracefully.*
+
+### Click Event Toggle 
+
+Click triggers automatically track playback state natively, alternating between `.play()` and `.reverse()` smoothly with every physical click.
+
+```html
+<div class="card cursor-pointer"
+     data-gsap-trigger="click" 
+     data-gsap-trigger-anim="[
+         {selector: '.dark-overlay', to: {clipPath: 'circle(150% at 90% 15%)'}, duration: 0.7, ease: 'power3.inOut'},
+         {selector: '.animated-text', type: 'split', splitType: 'lines,words', from: {y: 20, opacity: 0}, stagger: 0.05, duration: 0.5, delay: 0.2, ease: 'power2.out', position: '<'}
+     ]">
+    
+    <!-- The targeted clipping mask -->
+    <div class="dark-overlay" style="clip-path: circle(0% at 85% 15%);">
+        ...
+    </div>
+
+</div>
+```
+
+## Options Configuration
+
+The interaction engine maps specific payload properties logically onto the timeline.
+
+| Property | Type | Example | Description |
+|---|---|---|---|
+| `selector` | string | `'.icon'` | Maps standard GSAP timeline components natively to scoped children. |
+| `type` | string | `'split'` | Explicitly instructs the framework to parse text nodes first. |
+| `splitType` | string | `'chars'` | Informs the SplitText engine exactly how to partition string blocks correctly. |
+| `position` | string | `'<'` | Adjusts sequence mapping internally entirely over the master timeline explicitly. |
+| `to` / `from` | config object | `{y: -50}` | Injects specific motion coordinates properly natively seamlessly directly. |

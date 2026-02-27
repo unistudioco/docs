@@ -1,0 +1,71 @@
+---
+title: "Multi-Theme Architecture"
+description: "How to run multiple visual identities concurrently within a single Squeditor project."
+---
+
+Squeditor templates can support drastically different visual identities simultaneously using the nested `themes` configuration object. This is exceptionally useful when you need to showcase a single component system mapped into entirely different client aesthetics (e.g., an "Agency" layout vs. a "SaaS" layout).
+
+## Configuration
+
+Instead of maintaining separate codebase forks, you declare targeted page arrays mapped directly to discrete SCSS override files within your `squeditor.config.js`.
+
+```javascript
+// squeditor.config.js
+
+module.exports = {
+  // ...
+  themes: {
+    'agency': {
+      label: 'Agency Theme',
+      bodyClass: 'theme-agency',
+      scss: 'src/assets/scss/themes/_agency.scss',
+      pages: ['/', '/about.php', '/services.php'],
+      distSubfolder: 'demo-agency',
+    },
+    'saas': {
+      label: 'SaaS Theme',
+      bodyClass: 'theme-saas',
+      scss: 'src/assets/scss/themes/_saas.scss',
+      pages: ['/landing.php', '/pricing.php'],
+      distSubfolder: 'demo-saas',
+    },
+  },
+  
+  // The theme rendering currently active during the local PHP dev server
+  activeTheme: 'agency', 
+}
+```
+
+## Handles Overrides
+
+During the `npm run build:css` step, the Squeditor `build-components.js` script dynamically rewrites the last import in your `src/assets/scss/main.scss` framework file.
+
+### Inside `main.scss`
+
+```scss
+@import 'tokens';
+@import 'base';
+@import 'components';
+@import 'uikit-overrides';
+@import 'utilities';
+
+// DO NOT edit the line below manually. It is dynamically rewritten by the compiler to target the active theme.
+@import 'themes/agency'; 
+```
+
+Since the target theme block loads last, its root `--sq-*` tokens completely override entirely every preceding design token organically.
+
+## Production Isolation
+
+When `npm run build:snap` generates your static HTML snapshot deliverables, the crawler reads your `themes` array recursively. 
+
+It generates entirely separate directories in your `/dist` output for each theme, evaluating exactly only the specific `pages` array declared for that specific design system without leaking dependencies.
+
+```text
+/dist
+  /demo-agency
+    index.html
+    about.html
+  /demo-saas
+    landing.html
+```

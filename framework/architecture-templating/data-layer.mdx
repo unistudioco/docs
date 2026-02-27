@@ -1,0 +1,93 @@
+---
+title: "Data Layer"
+description: "Creating unified site structures by decoupling data arrays from static HTML templates."
+---
+
+Separating raw data (like team members, service features, or global navigation links) into dedicated array loops keeps your core `src/pages/` codebase small, legible, and easy to maintain. 
+
+Squeditor provides an elegant Data Layer configuration model specifically for this purpose.
+
+## Global Site Configuration
+
+The `src/config/site-config.php` file operates as your global configuration state. It is inherently loaded via the master `base.php` template. Any configuration set in `$site` is instantaneously available across all files.
+
+```php
+<?php
+// src/config/site-config.php
+
+$site = [
+    'name'        => 'My Project Name',
+    'lang'        => 'en',
+    'logo'        => '/assets/static/images/logo.svg',
+    'description' => 'Default site meta description.',
+    'url'         => 'https://myproject.com',
+
+    'nav' => [
+        ['label' => 'Home',     'url' => '/'],
+        ['label' => 'About',    'url' => '/about.html'],
+        ['label' => 'Services', 'url' => '/services.html'],
+        ['label' => 'Contact',  'url' => '/contact.html'],
+    ]
+];
+```
+
+### Global Config Usage Example
+
+Inside `src/template-parts/header.php`, the `$site` variable seamlessly integrates dynamic navigation mapping.
+
+```php
+<!-- Rendering the dynamic Logo and sitename securely -->
+<a href="/" class="sq--logo flex items-center gap-2">
+  <img src="<?= htmlspecialchars($site['logo']) ?>" alt="<?= htmlspecialchars($site['name']) ?>" class="h-8">
+  <span class="font-bold text-xl text-zinc-900"><?= htmlspecialchars($site['name']) ?></span>
+</a>
+```
+
+## Isolated Data Loops
+
+To prevent large `.php` page files from becoming overly complicated to read, declare repetitive item sets (like grids, team bios, or portfolios) as standard PHP associative arrays within the `src/data/` directory.
+
+### Declaring Data Arrays
+
+**Example: `src/data/team.php`**
+```php
+<?php
+$team_members = [
+    [
+        'name'  => 'Jane Doe',
+        'role'  => 'Creative Director',
+        'photo' => '/assets/static/images/team/jane.jpg',
+    ],
+    [
+        'name'  => 'John Smith',
+        'role'  => 'Lead Developer',
+        'photo' => '/assets/static/images/team/john.jpg',
+    ]
+];
+```
+
+### Extending Data Arrays Into Layouts
+
+Require the data file manually on any page or specific section block you need exactly mapped. 
+
+**Example: `src/pages/about.php`**
+```php
+<?php 
+// Map the array
+require_once __DIR__ . '/../data/team.php'; 
+
+// Render logic
+ob_start();
+?>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+  <!-- Standard foreach loop bridging associative keys easily -->
+  <?php foreach ($team_members as $member): ?>
+    <div class="sq-card text-center">
+      <img src="<?= htmlspecialchars($member['photo']) ?>" alt="<?= htmlspecialchars($member['name']) ?>">
+      <h3 class="text-xl font-semibold"><?= htmlspecialchars($member['name']) ?></h3>
+      <p class="text-zinc-500"><?= htmlspecialchars($member['role']) ?></p>
+    </div>
+  <?php endforeach; ?>
+</div>
+```

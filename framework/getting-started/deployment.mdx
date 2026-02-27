@@ -1,0 +1,29 @@
+---
+title: "Preview & Deploy"
+description: "How Squeditor packages output archives and immediately publishes them to the edge."
+---
+
+## Deploying & Archiving
+
+Once you execute the `npm run build` command, the framework evaluates the HTML snapshot and automatically calls the `squeditor/scripts/package-dist.js` archiver. 
+
+This guarantees sealed deliverables ready for handoff without manual file manipulation.
+
+## The Archiver Generation
+
+Squeditor navigates the `dist/` directory and creates a clean `<project-name>-dist.zip` package file securely inside the root directory. This contains the flat HTML files, the compiled CSS/JS assets, and the copied static folder (images, fonts).
+
+## Automated Host Deployment
+
+Squeditor integrates directly with modern Node deployers (Netlify or Vercel). Upon generating the final ZIP deliverable, the script reads your deployment preference.
+
+In `squeditor.config.js`:
+```javascript
+  // Distribution routing instructions
+  dist: {
+    zipName: 'my-project-dist.zip',
+    previewPlatform: 'netlify', // options: 'netlify' or 'vercel'
+  },
+```
+
+If set to `netlify`, the framework runs `netlify deploy --dir=dist --open`, which uploads the static flat HTML files to a temporary Edge URL and automatically launches it in your default web browser for immediate client review.

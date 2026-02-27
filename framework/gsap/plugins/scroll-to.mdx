@@ -1,0 +1,37 @@
+---
+title: "ScrollTo"
+description: "Native data attribute mapping for viewport targeting dynamically."
+---
+
+[View Demo](#)
+
+Squeditor introduces automated DOM hooks routing straight through the `ScrollTo` plugin purely via the **`data-sq-scrollto`** global interaction.
+
+## Usage 
+
+Assign semantic IDs across HTML elements cleanly over your DOM tree. Immediately target those links without any custom JavaScript event listeners.
+
+### Explicit Section Anchors
+
+```html
+<!-- Native targeting strictly off standard valid DOM logic correctly natively -->
+<a href="#about" data-sq-scrollto="duration: 1.5; ease: expo.out">
+    Skip to About
+</a>
+
+<section id="about">
+    ...
+</section>
+```
+
+<Note>
+If `data-sq-scrollto` is missing, you may need to explicitly import `./gsap-modules/scroll-to.js` through `gsap-advanced.js`. 
+</Note>
+
+## Data Config Properties 
+
+| Payload Variable | Type | Default | Reason |
+|---|---|---|---|
+| `duration` | numeric | `1.5` | How quickly the window scrolls to the target. |
+| `ease` | string | `'power4.inOut'` | The easing curve applied to the scroll transition. | 
+| `offsetY` | integer | `0` | Automatically offset the final scroll position to account for fixed headers. |

@@ -1,0 +1,55 @@
+---
+title: "SCSS Architecture"
+description: "Understanding layer boundaries and the 6-layer SCSS pipeline."
+---
+
+Squeditor relies heavily on Tailwind CSS for utility grids, spacing, and typography, but recognizes that complex components often require a dedicated preprocessor layer. 
+
+The framework employs a strict **6-layer SCSS hierarchy**.
+
+## The 6-Layer Hierarchy
+
+The entry point for SCSS is always `src/assets/scss/main.scss`. The file imports the layers in a very specific top-to-bottom cascade:
+
+```scss
+// src/assets/scss/main.scss
+
+@import 'tokens';          // Layer 1
+@import 'base';            // Layer 2
+@import 'components';      // Layer 3
+@import 'uikit-overrides'; // Layer 4
+@import 'utilities';       // Layer 5
+@import 'themes/agency';   // Layer 6 (Dynamically swapped per build)
+```
+
+### 1. `_tokens.scss`
+Acts as the universal design registry setting global CSS custom properties. 
+*Example:* Define `--sq-color-primary`, `--sq-font-sans`, `--sq-radius-md`.
+
+### 2. `_base.scss`
+Document-level resets extending standard normalizing behavior. 
+*Example:* HTML/Body typography baseline, generic `a` tag hover transitions.
+
+### 3. `_components.scss`
+Custom Squeditor component styles which Tailwind struggles to bundle cleanly. 
+*Example:* `.sq-card`, `.sq-hero-overlay`, `.sq-accordion-active`.
+
+### 4. `_uikit-overrides.scss`
+Overriding default UIKit3 styles. Because UIKit generates massive specificity, we dedicate a specific layer entirely to resolving `.uk-modal-dialog` or `.uk-offcanvas-bar` overrides using our custom properties from Layer 1.
+
+### 5. `_utilities.scss`
+Unique helper classes not covered natively by Tailwind.
+*Example:* Complex clip-paths, hardware-accelerated transforms, or `.scrollbar-hide`.
+
+### 6. `_theme.scss`
+The highest specificity layer designed **exclusively for client overriding**. 
+
+If an agency client wants red buttons instead of blue, they re-declare the root token here. Since it loads last, it overwrites the original `_tokens.scss` declaration cascading safely across all UIKit and Squeditor components.
+
+```scss
+// _themes/agency.scss — Overriding Layer 1
+:root {
+  --sq-color-primary: #FF0000;
+  --sq-font-sans: 'Helvetica Neue', sans-serif;
+}
+```

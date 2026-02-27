@@ -1,0 +1,65 @@
+---
+title: "Folder Structure"
+description: "Understanding Global vs. Local scope in Squeditor architecture."
+---
+
+Squeditor forces a strict separation of concerns. The framework engine is completely isolated from the templates that consume it.
+
+## The Mental Model: Global vs Local
+
+```text
+[workspace-root]/
+├── squeditor/        ← GLOBAL SCOPE
+├── my-project/       ← LOCAL SCOPE (Template folder)
+└── another-project/  ← LOCAL SCOPE (Template folder)
+```
+
+**Crucial Rule:**
+The `squeditor/` directory contains `zero` template content. Templates contain `zero` framework logic. Templates reference the framework only via `config.framework: '../squeditor'` in their config file. **Never manually edit files inside the `squeditor/` core folder while building a site.**
+
+## A Look Inside a Project
+
+When you scaffold a new template, your working environment (`my-project/`) handles data, uncompiled SCSS/PHP, and bundled output securely.
+
+### Workspace Breakdown
+
+```text
+my-project/
+├── squeditor.config.js       ← Per-project component selection + settings
+├── tailwind.config.js        ← Tailwind tokens for this project
+├── vite.config.js
+│
+├── src/                      ← Development Source
+│   ├── config/               ← Global site variables
+│   ├── data/                 ← PHP associative arrays for loops (Team, Blog)
+│   ├── assets/               
+│   │   ├── scss/             ← SCSS architecture files
+│   │   ├── js/                 
+│   │   └── static/           ← Copied verbatim to dist/ (images, fonts)
+│   ├── template-parts/       ← Reusable PHP partials (header, footer, nav)
+│   ├── components/           ← UIKit3-wired PHP component templates
+│   ├── sections/             ← Section variants (Hero, Cards, CTA)
+│   ├── page-templates/       ← Layout shells (base.php)
+│   ├── pages/                ← Actual site pages mapping to URLs
+│   └── style-guide.php       ← Auto-renders all active components
+│
+└── dist/                     ← Production Output (Generated)
+    ├── index.html            ← Flat HTML
+    ├── about.html
+    └── assets/               ← Compiled CSS/JS and copied static files
+```
+
+### The `src` vs `dist` Relationship
+
+Everything you code happens in the `src/` directory. 
+- You write `.php` files in `src/pages/`.
+- You write `.scss` files in `src/assets/scss/`.
+
+When you compile (`npm run build`), the framework:
+1. Compiles the SCSS to Tailwind.
+2. Boots up a local server.
+3. Visits every `.php` page you created.
+4. Downloads the output as flat `.html` files.
+5. Saves them perfectly structured inside `dist/`.
+
+**Never manually edit files inside `dist/`.** They are overwritten every time you run a build.

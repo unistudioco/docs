@@ -1,0 +1,93 @@
+---
+title: "PHP Templating System"
+description: "Mastering Squeditor's PHP helpers, layout shells, and rendering architecture."
+---
+
+Squeditor leverages PHP exclusively as a **development templating engine** (similar to WordPress), allowing you to use loops, arrays, and template inclusion without needing a live PHP server in production. It compiles directly into pure, flat HTML.
+
+## Core Helper Functions
+
+Included globally via `base.php`, these helpers (`squeditor/php/functions.php`) prevent you from writing raw `include` statements everywhere.
+
+### `get_template_part()`
+Includes structural components from `src/template-parts/`.
+
+```php
+// Includes src/template-parts/header.php
+<?php get_template_part('header'); ?>
+
+// Passing an optional associative array down to the partial as $args
+<?php get_template_part('nav', ['mobile' => true]); ?>
+```
+
+### `get_component()`
+Includes UIKit3 layout wrappers from `src/components/`.
+
+```php
+// Includes src/components/accordion.php
+<?php get_component('accordion', ['demo' => true]); ?>
+```
+
+### `get_section()`
+Includes standalone section blocks from `src/sections/`. This is extremely useful for reusable sections (e.g. Hero, Testimonials) across multiple URLs.
+
+```php
+// Includes src/sections/hero/hero-centered.php
+<?php get_section('hero/hero-centered', [
+    'heading'    => 'About Us',
+    'subheading' => 'We build things that work.',
+]); ?>
+```
+
+## Parsing Frontmatter
+
+To natively handle SEO and layout overrides on a per-page basis inside standard `.php` files, Squeditor uses a custom frontmatter syntax driven by a PHP comment block at the very top of each page.
+
+**Example `src/pages/about.php`:**
+```php
+<?php
+/*|
+title: About Us — My Project Name
+description: Learn about our team and mission.
+|*/
+
+$body_class = 'page-about';
+
+// Output Buffering catches all the HTML structure explicitly
+ob_start();
+?>
+
+<h1>About Our Project</h1>
+
+<?php
+$content = ob_get_clean();
+// The base engine captures $content and injects it securely into the HTML body.
+require __DIR__ . '/../page-templates/base.php';
+```
+
+## Base Layout Template
+
+`src/page-templates/base.php` acts as the master HTML shell. Every page extends it natively. It handles the `<head>`, metadata, linking the CSS/JS bundles, and injecting the `$content` variable correctly.
+
+```php
+// Inside base.php
+<!DOCTYPE html>
+<html lang="<?= $site['lang'] ?? 'en' ?>">
+<head>
+    <title><?= htmlspecialchars($page_title) ?></title>
+    <!-- ... -->
+</head>
+<body class="<?= htmlspecialchars($body_class) ?>">
+
+  <!-- Native framework headers mapping automatically -->
+  <?php get_template_part('header'); ?>
+
+  <main id="main-content">
+    <?php echo $content ?? ''; ?>
+  </main>
+
+  <?php get_template_part('footer'); ?>
+  
+</body>
+</html>
+```

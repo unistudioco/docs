@@ -1,0 +1,45 @@
+---
+title: "SplitText"
+description: "Declarative text splitting directly via semantic HTML properties."
+---
+
+[View Demo](#)
+
+Instead of utilizing native JavaScript iterations natively, Squeditor wraps GSAP's entire `SplitText` framework in a single **`data-gsap-split`** property designed exclusively for semantic text hierarchies.
+
+<Warning>
+**Never** apply `data-gsap-split` to elements with child HTML tags (like `<strong>` or `<a>`). Plain text headings or semantic `<p>` tags only.
+</Warning>
+
+## Usage
+
+Simply pass the type of split you desire, the transition animation coordinates, and define standard `stagger` offsets to create intricate, complex typographical sequences globally on scroll simply by declaring `<div data-gsap-split="type: chars...">`
+
+### Split by Character 
+
+```html
+<!-- Animate each character bounding across the timeline on scroll automatically -->
+<h1 class="hero-title"
+    data-gsap-split="type: chars; from: {x: 100, opacity: 0, rotationY: 180}; stagger: 0.075; duration: 1.25; ease: expo.out; scroll: true">
+    Motion Scroll
+</h1>
+```
+
+### Split by Word or Line
+
+Using `type: lines` inherently converts structural semantic paragraphs cleanly, adjusting line heights intrinsically to wrap on breakpoints sequentially across the parent container natively.
+
+```html
+<p class="text-xl"
+   data-gsap-split="type: lines; from: {y: 40, opacity: 0}; stagger: 0.1; duration: 1.2; ease: power2.out; scroll: true">
+    A declarative powerhouse capable of converting complex nested string logic into unified DOM components without JavaScript manipulation hooks.
+</p>
+```
+
+## Internal Options Overrides
+
+| Option | Type | Default | Description |
+|---|---|---|---|
+| `type` | string | `'words,lines'` | Which elements SplitText targets syntactically (`chars`, `words`, `lines`). |
+| `from` / `to` | nested string | `undefined` | Maps transition targets directly dynamically. |
+| `stagger` | number | `0.05` | Dictates sequential delay logic natively. |

@@ -1,0 +1,40 @@
+---
+title: "Keyframes"
+description: "Pass deep, recursive animation arrays sequentially inside HTML attributes."
+---
+
+[View Demo](#)
+
+Squeditor’s custom string parser correctly decodes recursive JSON arrays and nested object blocks directly from the `data-gsap` payload. This allows utilizing GSAP's native `keyframes` engine entirely declaratively to bounce an element across multiple hard points in a single string.
+
+## Usage
+
+Instead of supplying standard keys, supply a `keyframes` object wrapped in nested `[]` and `{}`. The engine evaluates these natively without JavaScript overhead.
+
+### Step Breakdown Array
+
+```html
+<!-- Bounces coordinates [0, 10, -10, 10, 0] across 3.5 seconds entirely inside HTML -->
+<div data-gsap="to: { keyframes: { y: [0, 10, -10, 10, 0], easeEach: 'power2.inOut' }, duration: 3.5 }">
+    Wobbling Element
+</div>
+```
+
+### Full Percentage Formatting
+
+You can natively map percentages internally, imitating CSS `@keyframes` logic exactly, but with GSAP powered easings.
+
+```html
+<div data-gsap="to: {
+    keyframes: {
+        '0%':   { x: 0, y: 0 },
+        '25%':  { x: 100, y: 0, ease: 'sine.inOut' },
+        '50%':  { x: 100, y: 100 },
+        '75%':  { x: 0, y: 100 },
+        '100%': { x: 0, y: 0, ease: 'power2.out' }
+    },
+    duration: 2
+}">
+    Orbiting Box
+</div>
+```

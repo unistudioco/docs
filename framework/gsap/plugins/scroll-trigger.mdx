@@ -1,0 +1,75 @@
+---
+title: "ScrollTrigger"
+description: "Animate elements and pin sections dynamically as they enter and leave the viewport."
+---
+
+[View Demo](#)
+
+ScrollTrigger natively bridges GSAP animations with viewport scroll position. Squeditor fully integrates ScrollTrigger directly into the primary `data-gsap` attributes, allowing you to trigger, pin, sequence, and scrub timelines purely via HTML.
+
+## Basic Scroll Reveals
+
+To trigger a standard animation when an element enters the viewport, simply add `scroll: true` to the standard `data-gsap` payload.
+
+```html
+<div data-gsap="from: {y: 40, opacity: 0}; scroll: true; duration: 1; ease: expo.out">
+    Content fades up when it enters the viewport.
+</div>
+```
+
+If you need a specific starting offset, provide `start`. The default is `top 85%`.
+
+```html
+<div data-gsap="from: {opacity: 0}; scroll: true; start: top 70%">
+    Triggers when the top of the element hits 70% down the screen.
+</div>
+```
+
+## Advanced Scrubbing and Pinning 
+
+For advanced functionality—like pinning massive structural sections or scrubbing timelines backwards and forwards synced frame-for-frame with the scrollbar—use the wrapper attribute `data-gsap-scroll`. 
+
+The `data-gsap-scroll` parent manages the scroll viewport timeline, and the GSAP engines scans the `data-gsap` children inside it to animate them concurrently.
+
+### Scrubbing Timelines
+
+Links the animation exact duration to the physical scrollbar. 
+
+```html
+<div data-gsap-scroll="start: top 80%; end: bottom 20%; scrub: 1">
+    <!-- This child's animation will smoothly reverse if you scroll back up -->
+    <div data-gsap="to: {x: 500, rotate: 360}; ease: none">
+        Scrubbing box
+    </div>
+</div>
+```
+
+### Pinning Sections
+
+Great for locking a section in place while interior items transition.
+
+```html
+<section data-gsap-scroll="pin: true; start: top top; end: +=1500; scrub: true">
+    <h2 data-gsap="to: { scale: 50, opacity: 0 }">Zooming hero title</h2>
+</section>
+```
+
+## Options Reference
+
+### Child `data-gsap="scroll: true"` options
+
+| Option | Type | Default | Description |
+|---|---|---|---|
+| `scroll` | boolean | `false` | Instructs the element to wait until it is in viewport to fire. |
+| `start` | string | `'top 85%'` | ScrollTrigger start position. |
+| `toggleActions` | string | `'play none none none'` | Playback logic (`onEnter`, `onLeave`, etc.) |
+
+### Parent `data-gsap-scroll` options
+
+| Option | Type | Default | Description |
+|---|---|---|---|
+| `scrub` | boolean \| number | `false` | Ties the animation timeline natively to the scrollbar. Numbers add inertia-lag (e.g. `1`). |
+| `pin` | boolean | `false` | Locks the element block in space vertically. |
+| `start` | string | `'top center'` | Custom trigger start position. |
+| `end` | string | `'bottom center'` | Custom trigger ending position. Crucial for determining how long a pin lasts. |
+| `pinSpacing` | boolean | `true` | Usually pads the DOM to respect the pinned distance. |

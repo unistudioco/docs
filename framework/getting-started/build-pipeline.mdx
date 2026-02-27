@@ -1,0 +1,37 @@
+---
+title: "The Build Pipeline"
+description: "How Squeditor Framework converts PHP to static HTML through Vite and custom crawlers."
+---
+
+The objective of Squeditor Framework is to allow advanced programmatic development using PHP and SCSS while ultimately delivering purely static, flat `index.html` deliverables.
+
+## The Compilation Commands
+
+You interact primarily through standard npm execution scripts running in your terminal:
+
+```bash
+# 1. Build only the CSS and JS bundles
+npm run build:css
+
+# 2. Crawl the PHP server and export flat HTML
+npm run build:snap
+
+# 3. Zip the output and conditionally deploy a preview URL
+npm run build:zip
+
+# Complete full production build step automatically (runs all 3 above)
+npm run build
+```
+
+## Pipeline Architecture Breakdown
+
+When you run `npm run build`, three discrete tools run consecutively:
+
+### 1. UIKit Components Bundler (`build-components.js`)
+It reads your `squeditor.config.js`, evaluates the `components[]` array, and cherry-picks the exact JS and CSS files out of `node_modules/` to create `uikit-components.css` and `uikit-components.js`.
+
+### 2. Vite SCSS/Tailwind Processor 
+Vite intercepts the CSS pipeline. It transpiles your SCSS architecture into pure CSS and executes Tailwind plugins via PostCSS based on your `tailwind.config.js`.
+
+### 3. The Snapshot Crawler (`snapshot.js`)
+Since the site uses `.php` endpoints locally, the snapshot crawler boots up a temporary local PHP server on port 3000. It visits every URL listed in your `squeditor.config.js` `pages` array, pulls the raw HTML natively, heavily rewrites internal links (converting `<a href="contact.php">` into `<a href="contact.html">`), and saves everything cleanly into the `dist/` folder.

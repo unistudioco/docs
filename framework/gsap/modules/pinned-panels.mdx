@@ -1,0 +1,39 @@
+---
+title: "Pinned Panels"
+description: "Stack sections on top of each other dynamically as users scroll."
+---
+
+## Attribute: `data-sq-panels`
+
+[View Demo](#)
+
+The Pinned Panels module pins a section to the top of the viewport and creates an overscroll effect where the next panel scales down the current one and slides over it. Designed for impactful storytelling sections, long-form content, and case study breakdowns.
+
+## Usage
+
+Wrap your individual panel sections in a parent `div` that has the `data-sq-panels` attribute.
+
+### Basic Example
+
+```html
+<div data-sq-panels>
+  <div class="sq-panel sq-panel--dark">Panel One</div>
+  <div class="sq-panel sq-panel--light">Panel Two</div>
+  <div class="sq-panel sq-panel--accent">Panel Three</div>
+</div>
+```
+
+### Advanced Example
+
+```html
+<div data-sq-panels="rounded: true">
+  <div class="sq-panel">Panel One</div>
+  <div class="sq-panel">Panel Two</div>
+</div>
+```
+
+## Options
+
+| Option | Type | Default | Description |
+|---|---|---|---|
+| `rounded` | boolean | `true` | Adds rounded bottom corners (`24px`) to each panel during the pin phase. |

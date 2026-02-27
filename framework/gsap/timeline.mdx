@@ -1,0 +1,52 @@
+---
+title: "GSAP Timeline"
+description: "Coordinate synchronized, automated timeline sequences entirely via data attributes."
+---
+
+[View Demo](#)
+
+Instead of using isolated delays for dozens of elements, the Squeditor framework allows unifying DOM nodes into automated **Master Timelines** directly from HTML using `data-gsap-timeline`. 
+
+This is incredibly powerful for complex sequences and interactive button hovering.
+
+## Auto-playing Timelines
+
+Defining a `data-gsap-timeline` creates a master sequence. Every child element inside that wrapper that possesses a GSAP attribute (`data-gsap`, `data-gsap-split`, `data-gsap-draw`, etc.) is automatically injected into that timeline **in DOM order**.
+
+```html
+<div data-gsap-timeline="repeat: -1; yoyo: true">
+    <!-- Starts instantly, from the beginning of timeline execution -->
+    <div data-gsap="from: {opacity: 0, y: -20}; duration: 1">First</div>
+    
+    <!-- Automatically waits for the first element to finish -->
+    <div data-gsap="from: {scale: 0}; duration: 0.5">Second</div>
+
+    <div data-gsap="from: {opacity: 0}; delay: 0.2">Third (0.2s pause before starting)</div>
+</div>
+```
+
+You can optionally pass the `position` parameter on individual children to override sequential ordering:
+```html
+<!-- Start 0.3s BEFORE the previous animation finished -->
+<div data-gsap="to: {x: 100}; position: '-=0.3'">Simultaneous</div>
+
+<!-- Force it to trigger exactly at the 0 absolute mark -->
+<div data-gsap="to: {y: 100}; position: 0">Absolute Start</div>
+```
+
+
+
+If you need a button to play a master timeline defined elsewhere in the DOM, link the button via standard playback data attributes passing the CSS ID string of the target timeline timeline:
+
+```html
+<!-- The timeline instance -->
+<div id="target-sequence" data-gsap-timeline="paused: true">
+   <div data-gsap="to: {x: 100}">...</div>
+</div>
+
+<!-- Remote control buttons -->
+<button data-gsap-play="#target-sequence">Play</button>
+<button data-gsap-pause="#target-sequence">Pause</button>
+<button data-gsap-reverse="#target-sequence">Reverse</button>
+<button data-gsap-toggle="#target-sequence">Toggle Open/Close</button>
+```

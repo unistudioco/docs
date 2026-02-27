@@ -1,0 +1,50 @@
+---
+title: "Quickstart"
+description: "Get started with Squeditor Framework."
+---
+
+Follow these steps to set up your core workspace root, scaffold a new project, and start development.
+
+<Steps>
+  <Step title="Installation">
+    Clone the repository to serve as your core workspace root:
+    
+    ```bash
+    git clone https://github.com/unistudioco/squeditor-workspace.git
+    cd squeditor-workspace
+    ```
+  </Step>
+  <Step title="Scaffold a New Project">
+    Squeditor Framework includes a robust CLI scaffolding tool. It generates a completely clean, minimalist `project-template/` instance next to the core framework, fully pre-configured to utilize the advanced GSAP and UIKit engines without demo bloat.
+
+    To scaffold your new project, run the following command from the workspace root:
+
+    ```bash
+    node squeditor/scripts/scaffold.js my-awesome-project
+    ```
+  </Step>
+  <Step title="Development">
+    Navigate into your newly generated project folder, install its dependencies, and start the development server:
+
+    ```bash
+    cd my-awesome-project
+    npm install
+    npm run dev
+    ```
+
+    <Warning>
+      **Use Port 3001 for Development**
+      
+      Vite will show a link to `http://127.0.0.1:5173/` in your terminal. **Do not use that link.**
+      
+      Instead, always visit the PHP Server address: **`http://127.0.0.1:3001`**. This is because Squeditor Framework uses PHP for template rendering, and Vite only serves the static assets.
+    </Warning>
+  </Step>
+  <Step title="Build for Production">
+    Generate the static `dist/` folder and a distributable ZIP archive:
+
+    ```bash
+    npm run build
+    ```
+  </Step>
+</Steps>

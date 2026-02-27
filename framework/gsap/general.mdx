@@ -1,0 +1,108 @@
+---
+title: "General"
+description: "Standard animations, text splitting, and scroll reveal using GSAP."
+---
+
+[View Demo](#)
+
+The Squeditor framework uses declarative data attributes for GSAP animations. A single `gsap-init.js` file scans the DOM and fires all animations automatically—no per-element JavaScript needed.
+
+Here are the three main attributes for general animations:
+
+<CardGroup cols={3}>
+  <Card title="data-gsap" icon="wand-magic-sparkles">
+    Standard animations: fade, slide, stagger, scroll reveal
+  </Card>
+  <Card title="data-gsap-split" icon="text-size">
+    Text reveal: split by chars, words, or lines via SplitText
+  </Card>
+  <Card title="data-gsap-scroll" icon="scroll">
+    Advanced scroll: pin sections, scrub, parallax
+  </Card>
+</CardGroup>
+
+## `data-gsap`
+
+Used for standard from/to animations, scroll reveals, and staggering children.
+
+```html
+<div data-gsap="from: {y: 40, opacity: 0}; duration: 0.75; ease: power2.out; scroll: true">
+  Content here
+</div>
+```
+
+### Options
+
+| Option | Type | Default | Description |
+|---|---|---|---|
+| `from` | string (JSON) | **Required** | GSAP vars: `{y, x, opacity, scale, rotate}` |
+| `duration` | number | `0.75` | Animation duration in seconds |
+| `ease` | string | `'power2.out'` | GSAP easing string |
+| `delay` | number | `0` | Delay before animation starts in seconds |
+| `stagger` | number | `0` | Stagger delay between children in seconds |
+| `scroll` | boolean | `false` | Enable ScrollTrigger on this element |
+| `start` | string | `'top 85%'` | ScrollTrigger start position |
+| `timeline` | boolean | `false` | Animate children sequentially |
+
+---
+
+## `data-gsap-split`
+
+Used to reveal text by chars, words, or lines. Powered by the GSAP `SplitText` plugin.
+
+<Warning>
+**Never** use on elements with child HTML tags. Plain text headings or paragraphs only.
+</Warning>
+
+```html
+<h2 data-gsap-split="type: words; from: {y: 60, opacity: 0}; stagger: 0.06; scroll: true">
+  Heading text
+</h2>
+```
+
+### Options
+
+| Option | Type | Default | Description |
+|---|---|---|---|
+| `type` | string | `'words'` | Split type: `'chars'`, `'words'`, or `'lines'` |
+| `from` | string (JSON) | **Required** | GSAP from vars, same as `data-gsap` |
+| `stagger` | number | `0.05` | Delay between each split unit |
+| `duration` | number | `0.75` | Duration per split unit |
+| `ease` | string | `'power2.out'` | Easing string |
+| `scroll` | boolean | `false` | Enable ScrollTrigger |
+| `start` | string | `'top 85%'` | ScrollTrigger start position |
+
+---
+
+## `data-gsap-scroll`
+
+Advanced ScrollTrigger features: pinning, scrubbing, and parallax.
+
+<Info>
+**Always pair** with a `data-gsap` child. The scroll attribute controls the trigger point, while the child's `data-gsap` controls the animation tween.
+</Info>
+
+```html
+<section data-gsap-scroll="pin: true; start: top top; end: +=600">
+  <div data-gsap="from: {opacity: 0}; scroll: true">...</div>
+</section>
+```
+
+### Options
+
+| Option | Type | Default | Description |
+|---|---|---|---|
+| `scrub` | boolean or number | `false` | Tie to scroll position — true or number |
+| `pin` | boolean | `false` | Pin element during scroll through |
+| `start` | string | `'top center'` | ScrollTrigger start position |
+| `end` | string | `'bottom center'` | ScrollTrigger end position |
+
+---
+
+## Easing Quick Reference
+
+- `power2.out` — Smooth deceleration (default, works for most elements)
+- `power3.out` — Stronger deceleration (good for large movements)
+- `expo.out` — Very sharp then slow (dramatic hero animations)
+- `back.out` — Slight overshoot (good for chars and icon animations)
+- `none` — Linear (use only for scrub-based scroll animations)

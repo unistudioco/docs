@@ -8,6 +8,10 @@
     "dark": "#15803D"
   },
   "favicon": "/favicon.svg",
+  "banner": {
+    "content": "🚀 Squeditor Beta is now live! See our [changelog](/changelog) for details.",
+    "dismissible": true
+  },
   "navigation": {
     "tabs": [
       {
@@ -44,6 +48,12 @@
               "ai-tools/claude-code",
               "ai-tools/windsurf"
             ]
+          },
+          {
+            "group": "Other",
+            "pages": [
+              "/changelog"
+            ]
           }
         ]
       },
@@ -53,8 +63,69 @@
           {
             "group": "Getting started",
             "pages": [
-              "framework/introduction",
-              "framework/quickstart"
+              "framework/getting-started/introduction",
+              "framework/getting-started/quickstart",
+              "framework/getting-started/build-pipeline",
+              "framework/getting-started/deployment"
+            ]
+          },
+          {
+            "group": "Architecture & Templating",
+            "pages": [
+              "framework/architecture-templating/folder-structure",
+              "framework/architecture-templating/php-templating",
+              "framework/architecture-templating/data-layer",
+              "framework/architecture-templating/components-manifest",
+              "framework/architecture-templating/editor-compatibility"
+            ]
+          },
+          {
+            "group": "Styling & Frontend",
+            "pages": [
+              "framework/styling-frontend/tailwind-integration",
+              "framework/styling-frontend/scss-architecture",
+              "framework/styling-frontend/multi-theme"
+            ]
+          },
+          {
+            "group": "GSAP",
+            "pages": [
+              "framework/gsap/general",
+              "framework/gsap/timeline",
+              "framework/gsap/keyframes"
+            ]
+          },
+          {
+            "group": "GSAP (Plugins)",
+            "pages": [
+              "framework/gsap/plugins/scroll-smooth",
+              "framework/gsap/plugins/scroll-trigger",
+              "framework/gsap/plugins/scroll-to",
+              "framework/gsap/plugins/split-text",
+              "framework/gsap/plugins/text",
+              "framework/gsap/plugins/morph-svg",
+              "framework/gsap/plugins/draw-svg"
+            ]
+          },
+          {
+            "group": "GSAP (Built-in Modules)",
+            "pages": [
+              "framework/gsap/modules/magic-cursor",
+              "framework/gsap/modules/cursor-preview",
+              "framework/gsap/modules/marquee",
+              "framework/gsap/modules/pinned-panels",
+              "framework/gsap/modules/swipe-slider",
+              "framework/gsap/modules/text-mask",
+              "framework/gsap/modules/tilt"
+            ]
+          },
+          {
+            "group": "Other",
+            "pages": [
+              "framework/license",
+              "framework/contributing",
+              "/framework/changelog",
+              "/framework/submit-a-feature-request"
             ]
           }
         ]
@@ -88,20 +159,13 @@
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://squeditor.com/dashboard"
+      "label": "Try Squeditor",
+      "href": "https://squeditor.com/"
     }
   },
   "contextual": {
     "options": [
-      "copy",
-      "view",
-      "chatgpt",
-      "claude",
-      "perplexity",
-      "mcp",
-      "cursor",
-      "vscode"
+      "copy"
     ]
   },
   "footer": {
