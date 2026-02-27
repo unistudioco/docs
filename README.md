@@ -1,8 +1,8 @@
-# Mintlify Starter Kit
+# Squeditor Docs
 
-Use the starter kit to get your docs deployed and ready to customize.
+Use the docs to get your docs deployed and ready to customize.
 
-Click the green **Use this template** button at the top of this repo to copy the Mintlify starter kit. The starter kit contains examples with
+Click the green **Use this template** button at the top of this repo to copy the Squeditor docs. The docs contains examples with
 
 - Guide pages
 - Navigation
@@ -10,23 +10,23 @@ Click the green **Use this template** button at the top of this repo to copy the
 - API reference pages
 - Use of popular components
 
-**[Follow the full quickstart guide](https://starter.mintlify.com/quickstart)**
+**[Follow the full quickstart guide](https://squeditor.com/docs/framework/quickstart)**
 
 ## AI-assisted writing
 
-Set up your AI coding tool to work with Mintlify:
+Set up your AI coding tool to work with Squeditor:
 
 ```bash
-npx skills add https://mintlify.com/docs
+npx skills add https://squeditor.com/docs
 ```
 
-This command installs Mintlify's documentation skill for your configured AI tools like Claude Code, Cursor, Windsurf, and others. The skill includes component reference, writing standards, and workflow guidance.
+This command installs Squeditor's documentation skill for your configured AI tools like Claude Code, Cursor, Windsurf, and others. The skill includes component reference, writing standards, and workflow guidance.
 
 See the [AI tools guides](/ai-tools) for tool-specific setup.
 
 ## Development
 
-Install the [Mintlify CLI](https://www.npmjs.com/package/mint) to preview your documentation changes locally. To install, use the following command:
+Install the [Squeditor CLI](https://www.npmjs.com/package/mint) to preview your documentation changes locally. To install, use the following command:
 
 ```
 npm i -g mint
@@ -42,7 +42,7 @@ View your local preview at `http://localhost:3000`.
 
 ## Publishing changes
 
-Install our GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app) to propagate changes from your repo to your deployment. Changes are deployed to production automatically after pushing to the default branch.
+Install our GitHub app from your [dashboard](https://dashboard.squeditor.com/settings/organization/github-app) to propagate changes from your repo to your deployment. Changes are deployed to production automatically after pushing to the default branch.
 
 ## Need help?
 
@@ -52,4 +52,4 @@ Install our GitHub app from your [dashboard](https://dashboard.mintlify.com/sett
 - If a page loads as a 404: Make sure you are running in a folder with a valid `docs.json`.
 
 ### Resources
-- [Mintlify documentation](https://mintlify.com/docs)
+- [Squeditor documentation](https://squeditor.com/docs)
