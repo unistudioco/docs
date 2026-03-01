@@ -1,6 +1,6 @@
 {
   "$schema": "https://squeditor.com/docs.json",
-  "theme": "mint",
+  "theme": "almond",
   "name": "Squeditor Docs",
   "icons": {
     "library": "lucide"
@@ -71,7 +71,7 @@
         "groups": [
           {
             "group": "Getting started",
-            "icon": "tv-minimal-play",
+            "icon": "rocket",
             "pages": [
               "framework/getting-started/introduction",
               "framework/getting-started/quickstart",
@@ -118,7 +118,8 @@
               "framework/license",
               "framework/contributing",
               "/framework/changelog",
-              "/framework/submit-a-feature-request"
+              "/framework/feature-request",
+              "/framework/support"
             ]
           }
         ]
