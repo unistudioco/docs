@@ -7,12 +7,13 @@ Squeditor forces a strict separation of concerns. The framework engine is comple
 
 ## The Mental Model: Global vs Local
 
-```text
-[workspace-root]/
-├── squeditor/        ← GLOBAL SCOPE
-├── my-project/       ← LOCAL SCOPE (Template folder)
-└── another-project/  ← LOCAL SCOPE (Template folder)
-```
+<Tree>
+  <Tree.Folder name="[workspace-root]" defaultOpen>
+    <Tree.Folder name="squeditor" />
+    <Tree.Folder name="my-project" />
+    <Tree.Folder name="another-project" />
+  </Tree.Folder>
+</Tree>
 
 **Crucial Rule:**
 The `squeditor/` directory contains `zero` template content. Templates contain `zero` framework logic. Templates reference the framework only via `config.framework: '../squeditor'` in their config file. **Never manually edit files inside the `squeditor/` core folder while building a site.**
@@ -23,31 +24,35 @@ When you scaffold a new template, your working environment (`my-project/`) handl
 
 ### Workspace Breakdown
 
-```text
-my-project/
-├── squeditor.config.js       ← Per-project component selection + settings
-├── tailwind.config.js        ← Tailwind tokens for this project
-├── vite.config.js
-│
-├── src/                      ← Development Source
-│   ├── config/               ← Global site variables
-│   ├── data/                 ← PHP associative arrays for loops (Team, Blog)
-│   ├── assets/               
-│   │   ├── scss/             ← SCSS architecture files
-│   │   ├── js/                 
-│   │   └── static/           ← Copied verbatim to dist/ (images, fonts)
-│   ├── template-parts/       ← Reusable PHP partials (header, footer, nav)
-│   ├── components/           ← UIKit3-wired PHP component templates
-│   ├── sections/             ← Section variants (Hero, Cards, CTA)
-│   ├── page-templates/       ← Layout shells (base.php)
-│   ├── pages/                ← Actual site pages mapping to URLs
-│   └── style-guide.php       ← Auto-renders all active components
-│
-└── dist/                     ← Production Output (Generated)
-    ├── index.html            ← Flat HTML
-    ├── about.html
-    └── assets/               ← Compiled CSS/JS and copied static files
-```
+<Card>
+<Tree>
+  <Tree.Folder name="my-project" defaultOpen>
+    <Tree.File name="squeditor.config.js" />
+    <Tree.File name="tailwind.config.js" />
+    <Tree.File name="vite.config.js" />
+    <Tree.Folder name="src" defaultOpen>
+      <Tree.Folder name="config" />
+      <Tree.Folder name="data" />
+      <Tree.Folder name="assets" defaultOpen>
+        <Tree.Folder name="scss" />
+        <Tree.Folder name="js" />
+        <Tree.Folder name="static" />
+      </Tree.Folder>
+      <Tree.Folder name="template-parts" />
+      <Tree.Folder name="components" />
+      <Tree.Folder name="sections" />
+      <Tree.Folder name="page-templates" />
+      <Tree.Folder name="pages" />
+      <Tree.File name="style-guide.php" />
+    </Tree.Folder>
+    <Tree.Folder name="dist" defaultOpen>
+      <Tree.File name="index.html" />
+      <Tree.File name="about.html" />
+      <Tree.Folder name="assets" />
+    </Tree.Folder>
+  </Tree.Folder>
+</Tree>
+</Card>
 
 ### The `src` vs `dist` Relationship
 

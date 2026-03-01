@@ -1,5 +1,5 @@
 ---
-title: "Tailwind Integration"
+title: "TailwindCSS"
 description: "Syncing SCSS tokens directly inside Tailwind dynamically."
 ---
 
@@ -11,10 +11,9 @@ Squeditor bridges this natively in the templates.
 
 Inside each project, the `tailwind.config.js` file is wired directly to resolve the deep SCSS properties. This ensures changes made in `src/assets/scss/_tokens.scss` propagate globally into standard `bg-primary`, `text-accent`, or `font-sans` classes.
 
-### The config file
+**The config file**
 
-```javascript
-// tailwind.config.js
+```javascript tailwind.config.js
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {

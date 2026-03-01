@@ -1,27 +1,68 @@
 ---
 title: "Introduction"
-description: "Welcome to Squeditor Framework — a high-performance static HTML framework."
+description: "Welcome to Squeditor Framework — a fully featured static HTML framework."
 ---
 
 **Squeditor Framework** is a static HTML website framework and build system explicitly designed to bring robust, modular development practices (like those found in WordPress or React) into pure flat-file HTML deliverables.
 
-## Core Philosophy
-
-**Squeditor Framework** separates the **authoring experience** from the **production deliverable**. 
-
 You author sites using familiar PHP `include` tags, loops, and associative arrays. But instead of hosting a PHP server in production, a built-in Node script dynamically crawls your local dev environment and compiles everything into lightning-fast, outputs 100% flat `.html` files, ready for production and compatible with Squeditor, Elementor and other websites editors.
 
+## Getting Started
+
+<Columns cols={2}>
+  <Card
+    title="Quickstart"
+    icon="tv-minimal-play"
+    href="/framework/getting-started/quickstart"
+  >
+    Get started with Squeditor Framework.
+  </Card>
+  <Card
+    title="Squeditor Config"
+    icon="settings"
+    href="/framework/getting-started/squeditor-config"
+  >
+    Configure Squeditor Framework.
+  </Card>
+    <Card
+    title="Build Pipeline"
+    icon="blocks"
+    href="/framework/getting-started/build-pipeline"
+  >
+    Build Squeditor Framework.
+  </Card>
+  <Card
+    title="Deployment"
+    icon="rocket"
+    href="/framework/getting-started/deployment"
+  >
+    Deploy Squeditor Framework.
+  </Card>
+</Columns>
+
 ## Key Features
-- **🛠 Zero-Runtime PHP Templating:** Utilize WordPress-style `get_template_part()` and array loops during development.
-- **🎨 Token-Based Styling Architecture:** Fully themeable via a centralized Design Token system (`_tokens.scss`). Every component and layout utility consumes CSS Custom Properties (`--sq-*`), allowing you to swap entire visual identities or color schemas (Light/Dark) instantly across the site.
-- **TailwindCSS Foundation:** Use TailwindCSS as the sole utility and layout CSS foundation. No Bootstrap. No global UIKit CSS bloat.
-- **🧩 Selective UIKit 3 Integration:** Use UIKit3 components (Sticky, Modal, Accordion) but only selectively bundle the exact JS and CSS needed per project via a strict manifest.
-- **⚡ Blazing Fast Build Pipeline:** Leverage Vite for instant HMR during development and optimized, tree-shaken production builds.
-- **Separate compiled files:** Output splits into `tailwind.css`, `uikit-components.css`, and `uikit-components.js` for perfect caching.
-- **Shareable Deliverables:** Generate a downloadable ZIP of the `dist/` folder and deploy preview URLs with a single terminal command.
-- **🌓 Built-in Light/Dark Mode:** Native support for `sq-theme-dark` classes and Tailwind's `dark:` utilities. The framework detects schema settings from the environment (or URL) and applies them globally to the body, ensuring a seamless and premium dark mode experience.
-- **📚 Section-Based Workflow:** Build pages in minutes using a library of pre-built, token-aware section variants!
-- **📖 Automatic Style Guide:** Every project includes an automatically generated `style-guide.php` page that renders every active component and its variants, serving as your project's living documentation.
+<CardGroup cols={2}>
+  <Card title="Zero-Runtime PHP Templating" icon="square-dashed-bottom-code">
+  </Card>
+  <Card title="Token-Based Styling Architecture" icon="swatch-book">
+  </Card>
+  <Card title="TailwindCSS Foundation" icon="container">
+  </Card>
+  <Card title="Selective UIKit 3 Integration" icon="bolt">
+  </Card>
+  <Card title="Blazing Fast Build Pipeline" icon="blocks">
+  </Card>
+  <Card title="Separate Compiled Files" icon="file-code">
+  </Card>
+  <Card title="Shareable Deliverables" icon="shapes">
+  </Card>
+  <Card title="Built-in Light/Dark Mode" icon="moon">
+  </Card>
+  <Card title="Section-Based Workflow" icon="layers-2">
+  </Card>
+  <Card title="Automatic Style Guide" icon="book-open">
+  </Card>
+</CardGroup>
 
 ## Tech Stack + Roles
 <CardGroup cols={2}>
