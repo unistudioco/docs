@@ -22,56 +22,61 @@
     "eyebrows": "breadcrumbs"
   },
   "navigation": {
-    "tabs": [
+    "dropdowns": [
       {
-        "tab": "Editor",
+        "dropdown": "Editor",
+        "icon": "squirrel",
         "groups": [
           {
             "group": "Getting started",
             "pages": [
               "index",
-              "quickstart",
-              "development"
+              "editor/getting-started/introduction",
+              "editor/getting-started/quickstart"
+            ]
+          },
+          {
+            "group": "Essentials",
+            "pages": [
+              "editor/getting-started/settings",
+              "editor/global-sections",
+              "editor/page-templates",
+              "editor/assets-management",
+              "editor/snippets"
             ]
           },
           {
             "group": "Customization",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
+              "editor/colors",
+              "editor/typography",
+              "editor/custom-css",
+              "editor/custom-js"
             ]
           },
           {
-            "group": "Writing content",
+            "group": "AI Tools",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
+              "editor/ai-tools/gemini",
+              "editor/ai-tools/nano-banana"
             ]
           },
           {
-            "group": "AI tools",
+            "group": "Billing",
             "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
-            ]
-          },
-          {
-            "group": "Other",
-            "pages": [
-              "/changelog"
+              "editor/billing/overview",
+              "editor/billing/payments",
+              "editor/billing/subscriptions"
             ]
           }
         ]
       },
       {
-        "tab": "Framework",
+        "dropdown": "Framework",
+        "icon": "paw-print",
         "groups": [
           {
             "group": "Getting started",
-            "icon": "rocket",
             "pages": [
               "framework/getting-started/introduction",
               "framework/getting-started/quickstart",
@@ -81,8 +86,7 @@
             ]
           },
           {
-            "group": "Templating",
-            "icon": "panels-top-left",
+            "group": "Architecture & Templating",
             "pages": [
               "framework/architecture-templating/folder-structure",
               "framework/architecture-templating/php-templating",
@@ -92,8 +96,7 @@
             ]
           },
           {
-            "group": "Styling and theming",
-            "icon": "paintbrush",
+            "group": "Styling & Theming",
             "pages": [
               "framework/styling-frontend/tailwind-integration",
               "framework/styling-frontend/scss-architecture",
@@ -101,8 +104,7 @@
             ]
           },
           {
-            "group": "GSAP animations",
-            "icon": "atom",
+            "group": "GSAP Animations",
             "pages": [
               "framework/gsap/general",
               "framework/gsap/timeline",
@@ -113,32 +115,17 @@
           },
           {
             "group": "Other",
-            "icon": "folder",
             "pages": [
               "framework/license",
               "framework/contributing",
-              "/framework/changelog",
-              "/framework/feature-request",
-              "/framework/support"
+              "framework/changelog",
+              "framework/feature-request",
+              "framework/support"
             ]
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Marketplace",
-          "href": "https://squeditor.com/marketplace",
-          "icon": "store"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://squeditor.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/logo/light.svg",
@@ -147,7 +134,7 @@
   "navbar": {
     "links": [
       {
-        "label": "Support",
+        "label": "Talk to us",
         "href": "mailto:hi@squeditor.com"
       }
     ],
@@ -165,7 +152,57 @@
   "footer": {
     "socials": {
       "x": "https://x.com/squeditor",
-      "github": "https://github.com/squeditor"
-    }
+      "github": "https://github.com/squeditor",
+      "slack": "https://squeditor.slack.com/community"
+    },
+    "links": [
+      {
+        "header": "Products",
+        "items": [
+          {
+            "label": "Squeditor",
+            "href": "https://squeditor.com"
+          },
+          {
+            "label": "Squeditor Framework",
+            "href": "https://squeditor.com/framework"
+          }
+        ]
+      },
+      {
+        "header": "Company",
+        "items": [
+          {
+            "label": "About",
+            "href": "https://squeditor.com/about"
+          },
+          {
+            "label": "Blog",
+            "href": "https://squeditor.com/blog"
+          },
+          {
+            "label": "Privacy Policy",
+            "href": "https://squeditor.com/privacy"
+          }
+        ]
+      },
+      {
+        "header": "Support",
+        "items": [
+          {
+            "label": "Submit a ticket",
+            "href": "https://squeditor.com/support"
+          },
+          {
+            "label": "Feature Request",
+            "href": "https://squeditor.com/feature-request"
+          },
+          {
+            "label": "FAQ",
+            "href": "https://squeditor.com/faq"
+          }
+        ]
+      }
+    ]
   }
 }

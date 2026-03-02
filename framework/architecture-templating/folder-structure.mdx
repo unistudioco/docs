@@ -7,6 +7,7 @@ Squeditor forces a strict separation of concerns. The framework engine is comple
 
 ## The Mental Model: Global vs Local
 
+<Card>
 <Tree>
   <Tree.Folder name="[workspace-root]" defaultOpen>
     <Tree.Folder name="squeditor" />
@@ -14,6 +15,7 @@ Squeditor forces a strict separation of concerns. The framework engine is comple
     <Tree.Folder name="another-project" />
   </Tree.Folder>
 </Tree>
+</Card>
 
 **Crucial Rule:**
 The `squeditor/` directory contains `zero` template content. Templates contain `zero` framework logic. Templates reference the framework only via `config.framework: '../squeditor'` in their config file. **Never manually edit files inside the `squeditor/` core folder while building a site.**
