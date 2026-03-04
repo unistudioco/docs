@@ -5,7 +5,7 @@
   "colors": {
     "primary": "#038677",
     "light": "#07C983",
-    "dark": "#15803D"
+    "dark": "#038677"
   },
   "fonts": {
     "family": "TASA Orbiter"
@@ -50,6 +50,14 @@
               "editor/components/conditional-display",
               "editor/components/ai"
             ]
+          },
+          {
+            "group": "Other",
+            "pages": [
+              "editor/changelog",
+              "feature-request",
+              "support"
+            ]
           }
         ]
       },
@@ -62,7 +70,7 @@
             "pages": [
               "framework/getting-started/introduction",
               "framework/getting-started/quickstart",
-              "framework/getting-started/squeditor-config",
+              "framework/getting-started/configuration",
               "framework/getting-started/build-pipeline",
               "framework/getting-started/deployment"
             ]
@@ -103,8 +111,8 @@
               "framework/contributing",
               "framework/debugging",
               "framework/changelog",
-              "framework/feature-request",
-              "framework/support"
+              "feature-request",
+              "support"
             ]
           }
         ]

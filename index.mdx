@@ -24,8 +24,13 @@ export const HeroCard = ({ image, title, description, href }) => {
   {/* Hero background */}
   <div className="absolute -top-14 left-0 right-0 opacity-80 pointer-events-none">
     <img
-      src="https://mintcdn.com/mintlify/aol5WIB48xAgY4dd/images/hero/background-light.svg?w=840&fit=max&auto=format&n=aol5WIB48xAgY4dd&q=85&s=15a026af4a3362c67978a6d322f8ab5d"
-      className="block w-full h-auto"
+      src="/images/background-light.svg"
+      className="block w-full h-auto dark:hidden"
+      alt="Image"
+    />
+    <img
+      src="/images/background-dark.svg"
+      className="block w-full h-auto hidden dark:block"
       alt="Image"
     />
   </div>
