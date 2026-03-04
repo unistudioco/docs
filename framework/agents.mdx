@@ -1,0 +1,69 @@
+---
+title: "Agent Skills"
+description: "Equip your AI assistant with the knowledge to build Squeditor templates flawlessly."
+icon: "user-robot"
+iconType: "duotone"
+---
+
+Squeditor Framework provides a collection of pre-configured **Agent Skills** designed to help AI coding assistants (like Antigravity, Claude, Opencode, Cursor, GitHub Copilot, or ChatGPT) instantly understand the framework's architecture and assist you in building templates faster.
+
+By providing these skills to your AI agent, it will automatically understand the framework's strict separation of concerns, PHP routing, GSAP implementation, and Tailwind configurations without needing repetitive prompting.
+
+## Download Skills
+
+You can download the complete bundle of skills and add them to your AI agent's knowledge base, project rules, or workspace context.
+
+<Card title="Download Agent Skills (.zip)" icon="file-zipper" iconType="duotone" href="/assets/skills.zip" horizontal>
+  Containing all Squeditor Framework AI skills in markdown format.
+</Card>
+
+---
+
+## Included Skills Overview
+
+These skills cover everything from scaffolding new pages to configuring the build pipeline.
+
+<AccordionGroup>
+  <Accordion title="Architecture & Templating" icon="sitemap" iconType="duotone">
+    - **template-scaffold**: Rules for generating new pages, template parts, and maintaining the correct folder structure.
+    - **php-templating**: Instructions on using PHP exclusively as a development templating engine (includes, loops, routing).
+    - **data-layer**: How to decouple static data into arrays (`src/data/`) and map them to layouts cleanly.
+  </Accordion>
+
+  <Accordion title="Styling & Frontend" icon="palette" iconType="duotone">
+    - **tailwind-design-system**: Framework rules for extending Tailwind, utilizing variables, and mapping to `squeditor.config.js`.
+    - **tailwind-patterns**: Best practices for writing clean Tailwind classes and avoiding arbitrary values.
+    - **scss-architecture**: Understanding the 10-layer SCSS pipeline and layer boundaries.
+    - **multi-theme**: Implementing and managing multiple CSS themes concurrently.
+    - **uikit-manifest**: Managing selective UIkit component imports to prevent output bloat.
+  </Accordion>
+
+  <Accordion title="GSAP & Animations" icon="sparkles" iconType="duotone">
+    - **gsap**: Guidelines for implementing GSAP using the framework's custom `data-gsap` HTML attribute system without writing custom JS.
+  </Accordion>
+  
+  <Accordion title="Editor Compatibility" icon="gear-code" iconType="duotone">
+    - **squeditor**: Rules for making templates fully compatible with the Squeditor No-Code HTML Editor.
+    - **squeditor-preferences**: How to manage `squeditor.json` for template metadata, global settings, theme config, and section libraries.
+  </Accordion>
+
+  <Accordion title="Build & Deployment" icon="rocket-launch" iconType="duotone">
+    - **build-pipeline**: Understanding Vite compilation and the static HTML crawler.
+    - **dist-output**: Rules for what belongs in the final `dist/` package.
+    - **preview-deploy**: How the framework handles local previews and production deployments.
+  </Accordion>
+
+  <Accordion title="Workflow & Debugging" icon="bug" iconType="duotone">
+    - **style-guide**: Rules for maintaining the automated theme style guide.
+    - **debugging**: Common troubleshooting steps for the build pipeline and Vite renderer.
+    - **mintlify**: Guidelines for maintaining the documentation (this very site!).
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## How to use
+
+1. **Download** the `skills.zip` file above and extract it.
+2. **Import** the specific `.md` skill files into your AI agent's custom instructions, project knowledge base, or `.cursorrules` (if using Cursor).
+3. **Instruct** your AI to refer to these skills when generating code, debugging, or scaffolding new features for your template.

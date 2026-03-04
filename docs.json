@@ -98,6 +98,7 @@
           {
             "group": "Other",
             "pages": [
+              "framework/agents",
               "framework/license",
               "framework/contributing",
               "framework/debugging",
@@ -143,12 +144,20 @@
         "header": "Products",
         "items": [
           {
-            "label": "Squeditor",
+            "label": "The Editor",
             "href": "https://squeditor.com"
           },
           {
-            "label": "Squeditor Framework",
+            "label": "The Framework",
             "href": "https://squeditor.com/framework"
+          },
+          {
+            "label": "Marketplace",
+            "href": "https://squeditor.com/marketplace"
+          },
+          {
+            "label": "Pricing",
+            "href": "https://squeditor.com/pricing"
           }
         ]
       },
@@ -164,8 +173,12 @@
             "href": "https://squeditor.com/blog"
           },
           {
-            "label": "Privacy Policy",
+            "label": "Privacy policy",
             "href": "https://squeditor.com/privacy"
+          },
+          {
+            "label": "Terms of service",
+            "href": "https://squeditor.com/terms"
           }
         ]
       },
@@ -177,7 +190,7 @@
             "href": "https://squeditor.com/support"
           },
           {
-            "label": "Feature Request",
+            "label": "Feature request",
             "href": "https://squeditor.com/feature-request"
           },
           {
