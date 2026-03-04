@@ -1,6 +1,8 @@
 ---
 title: "Introduction"
 mode: "frame"
+icon: "home"
+iconType: "duotone"
 ---
 
 export const HeroCard = ({ image, title, description, href }) => {
@@ -22,10 +24,29 @@ export const HeroCard = ({ image, title, description, href }) => {
 
 <div className="relative overflow-hidden">
 
+  {/* Hero background */}
+  <div className="absolute -top-14 left-0 right-0 opacity-10 pointer-events-none">
+    <img
+      src="/images/pattern-light.png"
+      className="block w-full h-auto dark:hidden"
+      alt="Pattern"
+    />
+    <img
+      src="/images/pattern-dark.png"
+      className="block w-full h-auto hidden dark:block"
+      alt="Pattern"
+    />
+  </div>
+
   {/* Hero content */}
-  <div className="relative z-10 px-4 pt-16 lg:pt-24 max-w-3xl mx-auto text-center">
+  <div className="relative z-10 px-4 pt-16 lg:pt-[89px] max-w-3xl mx-auto text-center">
+    <div className="w-fit mx-auto mb-8">
+      <img src="/logo/editor-intro-light.svg" alt="Editor" className="w-[80px] h-[80px] dark:hidden" noZoom />
+      <img src="/logo/editor-intro-dark.svg" alt="Editor" className="w-[80px] h-[80px] hidden dark:block" noZoom />
+    </div>
+
     <h1 className="block text-4xl font-medium text-gray-900 dark:text-zinc-50 tracking-tight">
-     The Editor Documentation
+     The Editor's Documentation
     </h1>
 
     <p className="mt-4 text-lg text-gray-500 dark:text-zinc-500">
@@ -33,25 +54,26 @@ export const HeroCard = ({ image, title, description, href }) => {
     </p>
   </div>
 
-  <div className="relative z-10 px-4 py-16 lg:pb-24 max-w-3xl mx-auto">
+  <div className="relative z-10 px-4 py-16 lg:pb-28 max-w-3xl mx-auto">
+    <h3 className="block text-xl font-medium text-center text-gray-900 dark:text-zinc-50 tracking-tight mb-8"> Getting Started</h3>
     <CardGroup cols={3}>
-      <Card href="/editor/configuration/template" arrow="true" title="Template Identity" icon="bolt">
+      <Card href="/editor/configuration/template" arrow="true" title="Template Identity" icon="memo-pad" iconType="duotone">
       </Card>
-      <Card href="/editor/configuration/global-settings" arrow="true" title="Global Settings" icon="swatch-book" color="#3146cfff">
+      <Card href="/editor/configuration/global-settings" arrow="true" title="Global Settings" icon="swatchbook" iconType="duotone">
       </Card>
-      <Card href="/editor/configuration/theme-config" arrow="true" title="Theme Config" icon="file-sliders" color="#e44368ff">
+      <Card href="/editor/configuration/theme-config" arrow="true" title="Theme Config" icon="gear" iconType="duotone">
       </Card>
-      <Card href="/editor/configuration/pages" arrow="true" title="Pages" icon="file" color="#e75ea9ff">
+      <Card href="/editor/configuration/pages" arrow="true" title="Pages" icon="book-open" iconType="duotone">
       </Card>
-      <Card href="/editor/configuration/sections-library" arrow="true" title="Sections Library" icon="container" color="#9496a4ff">
+      <Card href="/editor/configuration/sections-library" arrow="true" title="Sections Library" icon="cube" iconType="duotone">
       </Card>
-      <Card href="/editor/components/group-containers" arrow="true" title="Group Containers" icon="layers-2" color="#7c55caff">
+      <Card href="/editor/components/group-containers" arrow="true" title="Group Containers" icon="folder-open" iconType="duotone">
       </Card>
-      <Card href="/editor/components/controls" arrow="true" title="Controls Reference" icon="shapes" color="#4989d3ff">
+      <Card href="/editor/components/controls" arrow="true" title="Controls Reference" icon="shapes" iconType="duotone">
       </Card>
-      <Card href="/editor/components/conditional-display" arrow="true" title="Conditional Display" icon="eye" color="#ebb027ff">
+      <Card href="/editor/components/conditional-display" arrow="true" title="Conditional Display" icon="eye" iconType="duotone">
       </Card>
-      <Card href="/editor/components/ai" arrow="true" title="AI Content Generation" icon="sparkles" color="#f45fffff">
+      <Card href="/editor/components/ai" arrow="true" title="AI Content Generation" icon="sparkle" iconType="duotone">
       </Card>
     </CardGroup>
   </div>

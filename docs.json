@@ -2,9 +2,6 @@
   "$schema": "https://squeditor.com/docs/docs.json",
   "theme": "almond",
   "name": "Squeditor Docs",
-  "icons": {
-    "library": "lucide"
-  },
   "colors": {
     "primary": "#038677",
     "light": "#07C983",
@@ -25,7 +22,7 @@
     "dropdowns": [
       {
         "dropdown": "Editor",
-        "icon": "squirrel",
+        "icon": "/logo/editor.svg",
         "groups": [
           {
             "group": "Getting started",
@@ -58,7 +55,7 @@
       },
       {
         "dropdown": "Framework",
-        "icon": "paw-print",
+        "icon": "/logo/framework.svg",
         "groups": [
           {
             "group": "Getting started",
@@ -103,6 +100,7 @@
             "pages": [
               "framework/license",
               "framework/contributing",
+              "framework/debugging",
               "framework/changelog",
               "framework/feature-request",
               "framework/support"

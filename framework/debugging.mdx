@@ -1,0 +1,69 @@
+---
+title: "Troubleshooting"
+description: "Resolving common build and rendering issues in the Squeditor framework."
+icon: "bug"
+iconType: "duotone"
+---
+
+# Debugging
+
+Because Squeditor relies on a multi-stage compilation pipeline (PHP -> HTML, SCSS -> CSS, UIKit component cherry-picking), structural errors usually fall into one of five predictable categories.
+
+Follow this guide if anything in a template project is broken, not rendering, missing from the output, or throwing errors.
+
+## 1. UIKit JS Not Initializing
+
+**Symptom:** Modals don't open, accordions don't expand, or sticky headers break.
+**Cause:** The component is likely missing from your tracking array. 
+
+**Fix:** 
+1. Open `squeditor.config.js`.
+2. Ensure the component string (e.g. `'modal'`) is present within the `components: []` array.
+3. Stop your dev server, run `npm run build:css`, and restart `npm run dev` to regenerate the `uikit-components.js` bundle.
+
+## 2. Tailwind Not Purging PHP Classes Correctly
+
+**Symptom:** Tailwind CSS utility classes you wrote in a `.php` file are missing in the browser.
+**Cause:** The JIT compiler cannot find the file in the `content` watch paths.
+
+**Fix:**
+Ensure your `tailwind.config.js` properly targets `.php` extensions natively within the `src/` folder explicitly:
+```javascript
+module.exports = {
+  content: [
+    './src/**/*.php',
+    './src/**/*.html',
+  ],
+```
+
+## 3. Snapshot Producing Empty HTML
+
+**Symptom:** Opening `dist/index.html` reveals a blank page or a 404 error message from the PHP server.
+**Cause:** The target file was missing from standard routing or threw a fatal PHP error during the crawl.
+
+**Fix:**
+1. Manually open terminal and run `php -S localhost:3000 -t src`
+2. Navigate to `http://localhost:3000` in your browser. Read the explicit PHP stack trace error. Fix the syntax error in your source file.
+3. Ensure the page URL is explicitly listed in `squeditor.config.js` under `snapshot: { pages: ['/'] }`.
+
+## 4. Assets Missing from ZIP
+
+**Symptom:** Images or fonts are missing when the client extracts the `dist.zip` archive.
+**Cause:** The images were placed improperly or Vite failed to copy the static public directory.
+
+**Fix:**
+All static uncompiled assets MUST live securely inside `src/assets/static/`. Do not put images directly in `src/images/`. During `npm run dev` or `build`, Vite maps `src/assets/static/images/` directly to the `/images/` path via `vite.config.js` (`publicDir`).
+
+## 5. Theme SCSS Not Swapping
+
+**Symptom:** Running `npm run build` fails to load the correct `--sq-*` color tokens from your custom `themes/_client.scss` file.
+**Cause:** The compiler could not write to `main.scss`.
+
+**Fix:**
+Your `src/assets/scss/main.scss` absolutely MUST have an `@import` rule at the very bottom mapped to the `themes/` folder. The `build-components.js` script dynamically finds this line and string-replaces it to match the active theme. If you manually deleted it, the build script cannot swap it.
+
+```scss
+@import 'utilities';
+// Re-add this line specifically:
+@import 'themes/default';
+```
