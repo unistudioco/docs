@@ -1,0 +1,106 @@
+---
+title: "Sections Library"
+description: "Register individual DOM components to be editable within Squeditor."
+---
+
+This is the most powerful part of the configuration. The `section_library` registers individual DOM components (e.g., Heroes, Features, Footers, etc) allowing users to drag, drop, and edit them visually.
+
+```json squeditor.json
+"section_library": [
+  {
+    "id": "hero_home_5",
+    "name": "Hero Header 5",
+    "type": "hero",
+    "category": "header",
+    "thumbnail": "/templates/lexend/squeditor-assets/sections/hero-home-five.jpg",
+    "selector": "{{WRAPPER}} #hero_header",
+    "tabs": [ ... ]
+  }
+]
+```
+
+<Expandable title="properties" defaultOpen>
+  <ParamField path="id" type="string" required>
+    The unique identifier for the section, used inside the `pages` array.
+  </ParamField>
+  <ParamField path="name" type="string">
+    The human-readable name of the section.
+  </ParamField>
+  <ParamField path="type" type="string">
+    A string identifying the type of section for grouping or behavior.
+  </ParamField>
+  <ParamField path="category" type="string">
+    A category identifier for grouping in the UI.
+  </ParamField>
+  <ParamField path="selector" type="string" required>
+    The CSS selector that wraps this specific section in the HTML. Use `{{WRAPPER}}` to target the section node specifically.
+  </ParamField>
+  <ParamField path="thumbnail" type="string" required>
+    A preview image shown in the editor's visual block library.
+  </ParamField>
+  <ParamField path="tabs" type="array" required>
+    Defines the editable fields (text inputs, image uploaders, padding sliders) for this section. Controls map to specific HTML elements inside your section using DOM selectors and attributes (e.g., updating the `src` attribute of `img` tags or `textContent` of headings).
+    <Expandable title="Tab item format">
+      <ParamField path="id" type="string" required>
+        A unique identifier for the tab.
+      </ParamField>
+      <ParamField path="label" type="string" required>
+        The display title for the tab panel segment.
+      </ParamField>
+      <ParamField path="accordions" type="array" required>
+        Array of nested accordions containing the layout controls.
+      </ParamField>
+    </Expandable>
+  </ParamField>
+</Expandable>
+
+<CardGroup cols={2}>
+  <Card
+    title="Group Containers"
+    icon="layers-2"
+    href="/editor/components/group-containers"
+    arrow="true"
+    cta="View documentation"
+  >
+    Tabs and Accordions to structure the layout of your component settings organically.
+  </Card>
+  <Card
+    title="Controls"
+    icon="shapes"
+    href="/editor/components/controls"
+    arrow="true"
+    cta="View documentation"
+  >
+    Text, color, typography, repeaters, media and more tools to configure settings.
+  </Card>
+</CardGroup>
+
+<Note>
+Section thumbnails must strictly follow this relative path structure referencing your template ID:  
+`/templates/[template-id]/squeditor-assets/sections/[section-id].jpg`
+</Note>
+
+## Preparing Editor Assets
+
+To ensure a seamless experience in the editor, you must generate visual jpg/png thumbnails for your pages and sections so users know what they look like before dragging them into the canvas.
+
+<Card>
+<Tree>
+  <Tree.Folder name="templates" defaultOpen>
+    <Tree.Folder name="[template-id]" defaultOpen>
+      <Tree.Folder name="squeditor-assets" defaultOpen>
+        <Tree.Folder name="pages" defaultOpen>
+          <Tree.File name="index-5.jpg" />
+          <Tree.File name="page-services.jpg" />
+        </Tree.Folder>
+        <Tree.Folder name="sections" defaultOpen>
+          <Tree.File name="hero-home-five.jpg" />
+          <Tree.File name="brands-marquee.jpg" />
+        </Tree.Folder>
+      </Tree.Folder>
+    </Tree.Folder>
+  </Tree.Folder>
+</Tree>
+</Card>
+
+Once your `squeditor.json` is configured and assets are in the correct path structure, the Squeditor application will automatically parse the JSON, ingest your HTML files, and generate a fully functional no-code visual builder environment perfectly compatible with your template!

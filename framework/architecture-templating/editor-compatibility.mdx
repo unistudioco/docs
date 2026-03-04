@@ -1,5 +1,26 @@
 ---
 title: "Editor Compatibility"
+description: "How to make your template compatible with the Squeditor No-Code HTML Editor."
 ---
 
-Squeditor Framework is compatible with any website editor like Squeditor, Elementor, Beaver Builder, and Divi, as it relies on tokens-based styling and component-based architecture.
+While Squeditor Framework produces standard HTML files compatible with any site builder, it includes native integration with the **Squeditor No-Code HTML Editor**. 
+
+To make your template fully editable within the Squeditor interface, you must include a `squeditor.json` configuration file at the root of your project. This file acts as the blueprint, telling the editor how to parse your HTML, what custom controls to expose, and where to find visual representations of your template.
+
+## The `squeditor.json` Blueprint
+
+The `squeditor.json` file tells the editor how your template is structured, what pages exist, what sections are available, and what customizable controls (colors, fonts, text, images) should be exposed to the user.
+
+A standard `squeditor.json` file relies on five root objects:
+
+```json squeditor.json
+{
+  "template": {},
+  "global_settings": {},
+  "theme_config": {},
+  "pages": [],
+  "section_library": []
+}
+```
+
+For more information on how to configure the `squeditor.json` file, see the [Editor Configuration](/editor/getting-started/introduction) section.

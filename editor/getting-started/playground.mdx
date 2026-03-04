@@ -1,0 +1,191 @@
+---
+title: "Playground & Example"
+description: "A complete, working example of a squeditor.json configuration file."
+mode: "wide"
+---
+
+Here is a comprehensive example of a valid `squeditor.json` file. 
+
+It includes a template declaration, global settings, theme configuration, a sample page, and a robust section inside the library to demonstrate how nested controls, repeaters, and AI generation are structured.
+
+```json squeditor.json
+{
+  "template": {
+    "id": "lexend",
+    "name": "Lexend",
+    "version": "1.0.0",
+    "author": "UniStudio",
+    "description": "SaaS, Software",
+    "thumbnail": "/templates/lexend/squeditor-assets/thumbnail.jpg"
+  },
+  "global_settings": {
+    "global_colors": {
+      "primary": "#048676",
+      "secondary": "#fbf7f5",
+      "text": "#1f2937",
+      "background": "#ffffff"
+    },
+    "global_fonts": {
+      "heading": "Sunsive",
+      "body": "Sunsive"
+    }
+  },
+  "theme_config": {
+    "accordions": [
+      {
+        "id": "global_colors",
+        "label": "Global Colors",
+        "default_open": true,
+        "controls": [
+          {
+            "id": "primary",
+            "label": "Primary Brand",
+            "type": "color",
+            "default": "#048676"
+          },
+          {
+            "id": "secondary",
+            "label": "Secondary/Accent",
+            "type": "color",
+            "default": "#fbf7f5"
+          }
+        ]
+      },
+      {
+        "id": "global_fonts",
+        "label": "Global Fonts",
+        "controls": [
+          {
+            "id": "heading",
+            "label": "Headings Font",
+            "type": "typography",
+            "default": "Sunsive"
+          },
+          {
+            "id": "body",
+            "label": "Body Font",
+            "type": "typography",
+            "default": "Sunsive"
+          }
+        ]
+      }
+    ]
+  },
+  "pages": [
+    {
+      "name": "Lexend — Home 5",
+      "category": "Home",
+      "description": "Main landing page with hero, features, and pricing.",
+      "thumbnail": "/templates/lexend/squeditor-assets/pages/index-5.jpg",
+      "file": "index.html",
+      "sections": [
+        "hero_home_5",
+        "companies_sponsores"
+      ]
+    }
+  ],
+  "section_library": [
+    {
+      "id": "hero_home_5",
+      "name": "Hero Header 5",
+      "type": "hero",
+      "category": "header",
+      "tags": [
+        "home5",
+        "modern",
+        "cta"
+      ],
+      "description": "Hero section with images and CTA form for Home 5",
+      "thumbnail": "/templates/lexend/squeditor-assets/sections/hero-home-five.jpg",
+      "selector": "{{WRAPPER}} #hero_header",
+      "tabs": [
+        {
+          "id": "content_tab",
+          "label": "Content",
+          "accordions": [
+            {
+              "id": "section_content",
+              "label": "Heading & Description",
+              "default_open": true,
+              "controls": [
+                {
+                  "id": "heading_text",
+                  "label": "Heading",
+                  "type": "text",
+                  "selector": "{{WRAPPER}} .title",
+                  "attribute": "textContent",
+                  "default": "Use Data & AI, Responsibly",
+                  "ai_enabled": true,
+                  "ai_config": {
+                    "type": "headline",
+                    "max_length": 40,
+                    "prompt": "Generate a compelling headline for a SaaS business tool",
+                    "variations": 3
+                  },
+                  "label_block": true
+                },
+                {
+                  "id": "description",
+                  "label": "Description",
+                  "type": "textarea",
+                  "selector": "{{WRAPPER}} .desc",
+                  "attribute": "textContent",
+                  "default": "Unlock your productivity potential. Manage tasks and track progress.",
+                  "rows": 4,
+                  "ai_enabled": true,
+                  "ai_config": {
+                    "type": "body_text",
+                    "max_length": 200,
+                    "prompt": "Write engaging body copy for a SaaS product",
+                    "variations": 3
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "style_tab",
+          "label": "Style",
+          "accordions": [
+            {
+              "id": "section_layout",
+              "label": "Layout",
+              "default_open": true,
+              "controls": [
+                {
+                  "id": "section_padding",
+                  "label": "Padding",
+                  "type": "dimensions",
+                  "responsive": true,
+                  "size_units": [
+                    "px",
+                    "%",
+                    "em",
+                    "rem",
+                    "vh",
+                    "vw"
+                  ],
+                  "default": {
+                    "desktop": {
+                      "top": 80,
+                      "right": 0,
+                      "bottom": 80,
+                      "left": 0,
+                      "unit": "px",
+                      "isLinked": false
+                    }
+                  },
+                  "selectors": {
+                    "{{WRAPPER}} .section-outer": "padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```

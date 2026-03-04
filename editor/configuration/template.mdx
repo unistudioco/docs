@@ -1,0 +1,38 @@
+---
+title: "Template Metadata"
+description: "Declare core information about your template."
+---
+
+The `template` object declares the core information about your template.
+
+```json squeditor.json
+"template": {
+  "id": "lexend",
+  "name": "Lexend",
+  "version": "1.0.0",
+  "author": "UniStudio",
+  "description": "SaaS, Software",
+  "thumbnail": null
+}
+```
+
+<Expandable title="properties" defaultOpen>
+  <ParamField path="id" type="string" required>
+    A unique, URL-friendly slug for your template. This ID is critical as it dictates the asset paths (like thumbnails) later in the config.
+  </ParamField>
+  <ParamField path="name" type="string" required>
+    The template name displayed to users.
+  </ParamField>
+  <ParamField path="version" type="string">
+    The current version of your template.
+  </ParamField>
+  <ParamField path="author" type="string">
+    The creator or agency name.
+  </ParamField>
+  <ParamField path="description" type="string">
+    A short summary or category tags.
+  </ParamField>
+  <ParamField path="thumbnail" type="string">
+    Path to a main template thumbnail (optional).
+  </ParamField>
+</Expandable>

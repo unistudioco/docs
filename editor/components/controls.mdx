@@ -1,0 +1,504 @@
+---
+title: "Controls Reference"
+description: "Detailed API reference for all available editor inputs."
+---
+
+Controls are the active input components representing CSS properties or HTML attributes that the template developer allows the user to change. All controls share common base parameters but also have specific configurations depending on their `type`.
+
+## Base control
+
+Most controls share these core properties. Depending on the control type, these map to the DOM or CSS rules.
+
+<Expandable title="show properties" defaultOpen>
+<ParamField path="id" type="string" required>
+    Unique identifier for the control.
+</ParamField>
+<ParamField path="type" type="string" required>
+    The type of control (e.g., `text`, `media`, `slider`).
+</ParamField>
+<ParamField path="label" type="string">
+    Human-readable label for the UI interface.
+</ParamField>
+<ParamField path="selector" type="string">
+    CSS selector to target elements (e.g., `{{WRAPPER}} h1`).
+</ParamField>
+<ParamField path="selectors" type="record">
+    CSS rules map. Key is selector, value is rule (e.g., `color: {{VALUE}};`).
+</ParamField>
+<ParamField path="attribute" type="string">
+    DOM attribute to modify when mapping directly to HTML <br/> (e.g., `src`, `textContent`).
+</ParamField>
+<ParamField path="default" type="any">
+    Default value for the control when first rendered.
+</ParamField>
+<ParamField path="show_if" type="string">
+    Conditional visibility logic evaluated inside Squeditor <br/> (e.g., `"{{layout}} === 'custom'"`).
+    <br/>[Read more about Conditional Display](/editor/components/conditional-display)
+</ParamField>
+<ParamField path="description" type="string">
+    Helper text displayed below the control in Squeditor sidebar.
+</ParamField>
+<ParamField path="label_block" type="boolean">
+    If `true`, forces the label to display on its own row above the input.
+</ParamField>
+<ParamField path="ai_enabled" type="boolean">
+    Enables AI generation for compatible controls.
+</ParamField>
+<ParamField path="ai_config" type="object">
+    Configuration for AI text or media generation defaults. <br /><br />
+    Learn more about  [AI Configuration](/editor/components/ai).
+</ParamField>
+</Expandable>
+
+---
+
+## Text
+
+Used for simple single-line string values (headings, buttons, short inputs). Supports real-time preview and AI writing generation.
+
+<Frame>
+<img 
+  src="/images/controls/text.png" 
+  alt="Text Control"
+  style={{width: "266px", height: "auto"}}
+  className="rounded-lg my-2 shadow-sm border"
+  noZoom
+/>
+</Frame>
+
+```json
+{
+  "id": "heading_text",
+  "label": "Heading",
+  "type": "text",
+  "selector": "{{WRAPPER}} .title",
+  "attribute": "textContent",
+  "default": "Use Data & AI, Responsibly",
+  "ai_enabled": true,
+  "ai_config": {
+    "type": "headline",
+    "max_length": 40,
+    "prompt": "Generate a compelling headline for a SaaS business tool",
+    "variations": 3
+  },
+  "label_block": true
+}
+```
+
+<Expandable title="Text Properties">
+  <ParamField path="type" type="string" required>Must be `"text"`.</ParamField>
+  <ParamField path="selector" type="string">CSS selector to target elements.</ParamField>
+  <ParamField path="attribute" type="string">Target attribute (usually `textContent`).</ParamField>
+  <ParamField path="ai_enabled" type="boolean">Enables AI writing assistant.</ParamField>
+  <ParamField path="ai_config" type="object">[See AI configuration reference](/editor/components/ai)</ParamField>
+</Expandable>
+
+---
+
+## Textarea
+
+Used for multi-line text blocks (descriptions, content bodies). Provides a larger input area.
+
+<Frame>
+<img 
+  src="/images/controls/textarea.png" 
+  alt="Textarea Control"
+  style={{width: "266px", height: "auto"}}
+  className="rounded-lg my-2 shadow-sm border"
+  noZoom
+/>
+</Frame>
+
+```json
+{
+  "id": "description",
+  "label": "Description",
+  "type": "textarea",
+  "selector": "{{WRAPPER}} .desc",
+  "attribute": "textContent",
+  "default": "Unlock your productivity...",
+  "rows": 4,
+  "ai_enabled": true
+}
+```
+
+<Expandable title="Textarea Properties">
+  <ParamField path="type" type="string" required>Must be `"textarea"`.</ParamField>
+  <ParamField path="rows" type="number">Number of visible text rows in Squeditor.</ParamField>
+  <ParamField path="ai_enabled" type="boolean">Enables AI text generation support.</ParamField>
+  <ParamField path="ai_config" type="object">[See AI configuration reference](/editor/components/ai)</ParamField>
+</Expandable>
+
+---
+
+## Heading
+
+Used to inject non-editable separator titles in Squeditor sidebar to group related visual settings visually. It is not an input control it just a separator.
+
+<Frame>
+<img 
+  src="/images/controls/heading.png" 
+  alt="Heading Control"
+  style={{width: "266px", height: "auto"}}
+  className="rounded-lg my-2 shadow-sm border"
+  noZoom
+/>
+</Frame>
+
+```json
+{
+  "id": "your_heading",
+  "type": "heading",
+  "label": "Heading Separator",
+  "separator": "before"
+}
+```
+
+<Expandable title="Heading Properties">
+  <ParamField path="type" type="string" required>Must be `"heading"`.</ParamField>
+  <ParamField path="label" type="string">The text to display as a heading in Squeditor sidebar.</ParamField>
+  <ParamField path="separator" type="string">Add a line separator `"before"` or `"after"` the heading.</ParamField>
+</Expandable>
+
+---
+
+## Color
+
+Color picker with alpha support. Can inject CSS variables or apply styles directly.
+
+<Frame>
+<img 
+  src="/images/controls/color.png" 
+  alt="Color Control"
+  style={{width: "266px", height: "auto"}}
+  className="rounded-lg my-2 shadow-sm border"
+  noZoom
+/>
+</Frame>
+
+```json
+{
+  "id": "primary",
+  "label": "Primary Brand",
+  "type": "color",
+  "default": "#048676"
+}
+```
+
+<Expandable title="Color Properties">
+  <ParamField path="type" type="string" required>Must be `"color"`.</ParamField>
+  <ParamField path="default" type="string">Default hex or rgba color code.</ParamField>
+  <ParamField path="selectors" type="object">Map of CSS rules (e.g., `"background-color: {{VALUE}};"`).</ParamField>
+</Expandable>
+
+---
+
+## Typography
+
+Selector for global font variables or family assignments.
+
+```json
+{
+  "id": "heading",
+  "label": "Headings Font",
+  "type": "typography",
+  "default": "Sunsive"
+}
+```
+
+<Expandable title="Typography Properties">
+  <ParamField path="type" type="string" required>Must be `"typography"`.</ParamField>
+  <ParamField path="default" type="string">Default font-family name.</ParamField>
+</Expandable>
+
+---
+
+## Media
+
+Integration with the Media Library for Images and Videos.
+
+<Frame>
+<img 
+  src="/images/controls/media.png" 
+  alt="Media Control"
+  style={{width: "266px", height: "auto"}}
+  className="rounded-lg my-2 shadow-sm border"
+  noZoom
+/>
+</Frame>
+
+```json
+{
+  "id": "user_image",
+  "label": "Image",
+  "type": "media",
+  "selector": "img",
+  "attribute": "src",
+  "media_type": "image",
+  "default": "/templates/lexend/assets/images/avatars/02.jpg",
+  "ai_enabled": true,
+  "ai_config": {
+    "type": "image",
+    "aspect_ratio": "1:1"
+  }
+}
+```
+
+<Expandable title="Media Properties">
+  <ParamField path="type" type="string" required>Must be `"media"`.</ParamField>
+  <ParamField path="media_type" type="string" required>`"image"`, `"video"`, or `"all"`.</ParamField>
+  <ParamField path="max_file_size" type="number">Max file size allowed in bytes (e.g., `5242880` for 5MB).</ParamField>
+  <ParamField path="ai_enabled" type="boolean">Enables AI image generation.</ParamField>
+  <ParamField path="ai_config" type="object">[See AI configuration reference](/editor/components/ai)</ParamField>
+</Expandable>
+
+---
+
+## Select
+
+A dropdown menu control for selecting predefined choices.
+
+<Frame>
+<img 
+  src="/images/controls/select.png" 
+  alt="Select Control"
+  style={{width: "266px", height: "auto"}}
+  className="rounded-lg my-2 shadow-sm border"
+  noZoom
+/>
+</Frame>
+
+```json
+{
+  "id": "section_container",
+  "label": "Container",
+  "type": "select",
+  "selector": "{{WRAPPER}} .section-outer > *",
+  "attribute": "class",
+  "options": [
+    { "value": "container", "label": "Default" },
+    { "value": "container-fluid", "label": "Full Width" },
+    { "value": "custom", "label": "Custom" }
+  ],
+  "default": "container"
+}
+```
+
+<Expandable title="Select Properties">
+  <ParamField path="type" type="string" required>Must be `"select"`.</ParamField>
+  <ParamField path="options" type="array" required>
+    Array containing object choices for the dropdown.
+    <Expandable title="Option Structure">
+      <ParamField path="value" type="string" required>The raw code value inserted.</ParamField>
+      <ParamField path="label" type="string" required>The human-readable title of the option.</ParamField>
+    </Expandable>
+  </ParamField>
+</Expandable>
+
+---
+
+## Slider
+
+A responsive range slider control, perfect for widths, text sizing, or capacities.
+
+<Frame>
+<img 
+  src="/images/controls/slider.png" 
+  alt="Slider Control"
+  style={{width: "266px", height: "auto"}}
+  className="rounded-lg my-2 shadow-sm border"
+  noZoom
+/>
+</Frame>
+
+```json
+{
+  "id": "section_container_width",
+  "label": "Container Custom Width",
+  "type": "slider",
+  "responsive": true,
+  "size_units": ["px", "%", "vw", "rem"],
+  "range": {
+    "px": { "min": 200, "max": 1600, "step": 8 },
+    "%": { "min": 0, "max": 100, "step": 1 }
+  },
+  "default": {
+    "desktop": { "size": 1200, "unit": "px" },
+    "tablet": { "size": 90, "unit": "%" },
+    "mobile": { "size": 100, "unit": "%" }
+  },
+  "selectors": {
+    "{{WRAPPER}} .section-outer > *": "max-width: {{SIZE}}{{UNIT}} !important; margin: 0 auto !important;"
+  }
+}
+```
+
+<Expandable title="Slider Properties">
+  <ParamField path="type" type="string" required>Must be `"slider"`.</ParamField>
+  <ParamField path="responsive" type="boolean">If true, lets users set separate mobile/tablet/desktop values.</ParamField>
+  <ParamField path="size_units" type="array">Allowed CSS units (`["px", "%", "em", "vw"]`).</ParamField>
+  <ParamField path="range" type="object">Object mapping min, max, and step validation limits for each unit type.</ParamField>
+  <ParamField path="default" type="object|number">A plain number or a responsive mapping object defining default sizes per device.</ParamField>
+</Expandable>
+
+---
+
+## Dimensions
+
+A linked, 4-sided (Top/Right/Bottom/Left) numerical input for margin, padding, or border-radius properties.
+
+<Frame>
+<img 
+  src="/images/controls/dimensions.png" 
+  alt="Dimensions Control"
+  style={{width: "266px", height: "auto"}}
+  className="rounded-lg my-2 shadow-sm border"
+  noZoom
+/>
+</Frame>
+
+```json
+{
+  "id": "section_padding",
+  "label": "Padding",
+  "type": "dimensions",
+  "responsive": true,
+  "size_units": ["px", "%", "em", "rem", "vh", "vw"],
+  "default": {
+    "desktop": { "top": 80, "right": 0, "bottom": 80, "left": 0, "unit": "px", "isLinked": false },
+    "tablet": { "top": 64, "right": 0, "bottom": 64, "left": 0, "unit": "px", "isLinked": false },
+    "mobile": { "top": 40, "right": 0, "bottom": 40, "left": 0, "unit": "px", "isLinked": false }
+  },
+  "selectors": {
+    "{{WRAPPER}} .section-outer": "padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;"
+  }
+}
+```
+
+<Expandable title="Dimensions Properties">
+  <ParamField path="type" type="string" required>Must be `"dimensions"`.</ParamField>
+  <ParamField path="responsive" type="boolean">Enables breakpoint behavior.</ParamField>
+  <ParamField path="size_units" type="array">Available units.</ParamField>
+  <ParamField path="default" type="object">Maps values `top`, `right`, `bottom`, `left`, `unit`, and boolean `isLinked`.</ParamField>
+</Expandable>
+
+---
+
+## Number
+
+Basic number input component for generic counting variables (like items-per-view) or basic size rules.
+
+<Frame>
+<img 
+  src="/images/controls/number.png" 
+  alt="Number Control"
+  style={{width: "266px", height: "auto"}}
+  className="rounded-lg my-2 shadow-sm border"
+  noZoom
+/>
+</Frame>
+
+```json
+{
+  "id": "form_submit_fontSize_new",
+  "label": "Button Font Size",
+  "type": "number",
+  "responsive": true,
+  "size_units": ["px", "em", "rem"],
+  "min": 10,
+  "max": 50,
+  "default": {
+    "desktop": { "size": 18, "unit": "px" }
+  },
+  "selectors": {
+    "{{WRAPPER}} .cta-button": "font-size: {{SIZE}}{{UNIT}} !important;"
+  }
+}
+```
+
+<Expandable title="Number Properties">
+  <ParamField path="type" type="string" required>Must be `"number"`.</ParamField>
+  <ParamField path="min" type="number">Minimum value.</ParamField>
+  <ParamField path="max" type="number">Maximum valid value.</ParamField>
+  <ParamField path="responsive" type="boolean">Boolean layout responsive state.</ParamField>
+</Expandable>
+
+---
+
+## Icon
+
+Used to load specific icon classnames directly to DOM elements. Uses an icon picker.
+
+```json
+{
+  "id": "feat_icon",
+  "label": "Icon",
+  "type": "icon",
+  "selector": ".icon-box > *",
+  "attribute": "className",
+  "default": "unicon-search",
+  "label_block": false
+}
+```
+
+<Expandable title="Icon Properties">
+  <ParamField path="type" type="string" required>Must be `"icon"`.</ParamField>
+  <ParamField path="attribute" type="string">The literal DOM attribute that stores the icon font prefix (e.g. `"className"`).</ParamField>
+  <ParamField path="default" type="string">String of the default CSS icon class.</ParamField>
+</Expandable>
+
+---
+
+## Repeater
+
+Complex control used to manage lists of repetitive elements (e.g., FAQ accordions, pricing tiers, testimonial grids). Repeaters load a sub-array of nested Controls for every repeating DOM slice.
+
+<Frame>
+<img 
+  src="/images/controls/repeater.png" 
+  alt="Repeater Control"
+  style={{width: "266px", height: "auto"}}
+  className="rounded-lg my-2 shadow-sm border"
+  noZoom
+/>
+</Frame>
+
+```json
+{
+  "id": "faq_repeater",
+  "label": "Items",
+  "type": "repeater",
+  "selector": "{{WRAPPER}} ul.uc-accordion-divider > li",
+  "fields": [
+    {
+      "id": "question",
+      "label": "Question",
+      "type": "text",
+      "selector": ".uc-accordion-title",
+      "attribute": "textContent"
+    },
+    {
+      "id": "answer",
+      "label": "Answer",
+      "type": "textarea",
+      "selector": ".uc-accordion-content",
+      "attribute": "textContent"
+    }
+  ],
+  "default": [
+    { "question": "Example?", "answer": "Example answer." }
+  ],
+  "title_field": "question",
+  "prevent_empty": 1
+}
+```
+
+<Expandable title="Repeater Properties">
+  <ParamField path="type" type="string" required>Must be `"repeater"`.</ParamField>
+  <ParamField path="selector" type="string" required>The exact CSS rule that selects the specific repetitive wrapper inside your parent block.</ParamField>
+  <ParamField path="fields" type="array" required>An array containing child Controls acting as template schema variables.</ParamField>
+  <ParamField path="default" type="array">An array grouping identical properties mapped from `fields` simulating live items.</ParamField>
+  <ParamField path="title_field" type="string">Which relative variable child ID identifies the label assigned to its active row in array configuration mode.</ParamField>
+  <ParamField path="prevent_empty" type="number">Minimum threshold volume (defaults restrict clearing rows below boundary).</ParamField>
+  <ParamField path="per_page" type="number">Limits the maximum objects loading automatically before enabling slicing capabilities.</ParamField>
+</Expandable>

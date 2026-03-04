@@ -1,5 +1,5 @@
 {
-  "$schema": "https://squeditor.com/docs.json",
+  "$schema": "https://squeditor.com/docs/docs.json",
   "theme": "almond",
   "name": "Squeditor Docs",
   "icons": {
@@ -32,41 +32,26 @@
             "pages": [
               "index",
               "editor/getting-started/introduction",
-              "editor/getting-started/quickstart"
+              "editor/getting-started/playground"
             ]
           },
           {
-            "group": "Essentials",
+            "group": "Configuration",
             "pages": [
-              "editor/getting-started/settings",
-              "editor/global-sections",
-              "editor/page-templates",
-              "editor/assets-management",
-              "editor/snippets"
+              "editor/configuration/template",
+              "editor/configuration/global-settings",
+              "editor/configuration/theme-config",
+              "editor/configuration/pages",
+              "editor/configuration/sections-library"
             ]
           },
           {
-            "group": "Customization",
+            "group": "Components",
             "pages": [
-              "editor/colors",
-              "editor/typography",
-              "editor/custom-css",
-              "editor/custom-js"
-            ]
-          },
-          {
-            "group": "AI Tools",
-            "pages": [
-              "editor/ai-tools/gemini",
-              "editor/ai-tools/nano-banana"
-            ]
-          },
-          {
-            "group": "Billing",
-            "pages": [
-              "editor/billing/overview",
-              "editor/billing/payments",
-              "editor/billing/subscriptions"
+              "editor/components/group-containers",
+              "editor/components/controls",
+              "editor/components/conditional-display",
+              "editor/components/ai"
             ]
           }
         ]

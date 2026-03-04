@@ -1,0 +1,54 @@
+---
+title: "Pages"
+description: "Define the pre-built HTML pages that belong to your template."
+---
+
+The `pages` array tells the editor which pre-built HTML pages belong to your template and what sections they are composed of.
+
+```json squeditor.json
+"pages": [
+  {
+    "name": "Lexend — Home 5",
+    "category": "Home",
+    "description": "Main landing page with hero, features, and pricing.",
+    "thumbnail": "/templates/lexend/squeditor-assets/pages/index-5.jpg",
+    "file": "index.html",
+    "sections": [
+      "hero_home_5",
+      "companies_sponsores",
+      "main_features"
+    ]
+  }
+]
+```
+
+<Expandable title="properties" defaultOpen>
+  <ParamField path="name" type="string" required>
+    The human-readable name of the page.
+  </ParamField>
+  <ParamField path="category" type="string">
+    A category string to group pages in the editor's page list.
+  </ParamField>
+  <ParamField path="description" type="string">
+    A short description defining the page's purpose.
+  </ParamField>
+  <ParamField path="file" type="string" required>
+    The exact compiled HTML filename inside your `dist/` folder.
+  </ParamField>
+  <ParamField path="thumbnail" type="string" required>
+    A preview image shown in the editor's page browser.
+  </ParamField>
+  <ParamField path="sections" type="array" required>
+    An array of section IDs mapping directly to the `section_library`.
+    <Expandable title="items">
+      <ParamField path="section_id" type="string">
+        The string ID mapping to a specific module from the `section_library`.
+      </ParamField>
+    </Expandable>
+  </ParamField>
+</Expandable>
+
+<Warning>
+Page thumbnails must strictly follow this relative path structure referencing your template ID:  
+`/templates/[template-id]/squeditor-assets/pages/[page-id].jpg`
+</Warning>

@@ -1,0 +1,76 @@
+---
+title: "Conditional Display"
+description: "Dynamically show or hide controls in Squeditor."
+---
+
+Squeditor includes a Conditional Display system that allows you to dynamically show or hide certain controls based on the values of *other* controls. This is extremely useful for keeping Squeditor sidebar clean when an option doesn't apply (e.g., hiding font size settings when a custom layout is disabled).
+
+## Basic Usage
+
+The `show_if` property inside any control definition determines its visibility.
+
+### Equality
+Display a control if another control's `id` matches a specific value.
+
+```json
+"show_if": "{{section_container}} === 'custom'"
+```
+
+### Inequality
+Display a control if another control does **NOT** equal a specific value.
+
+```json
+"show_if": "{{section_bg}} !== 'video'"
+```
+
+### Multiple Values
+Display a control if another control's value matches one of the items in a set.
+
+```json
+"show_if": "{{button_style}} in { 'primary', 'secondary' }"
+```
+---
+
+## Logical Grouping
+
+You can combine multiple conditions using **AND** (implicit in arrays) or **OR** (explicit object configuration).
+
+### AND Logic (Default)
+All conditions must be true for the control to display. Pass an array of condition strings.
+
+```json
+"show_if": [
+    "{{section_container}} === 'custom'",
+    "{{show_advanced}} === true"
+]
+```
+
+### OR Logic
+At least one condition must be true. Pass a configuration object with `relation: 'OR'`.
+
+```json
+"show_if": {
+    "relation": "OR",
+    "conditions": [
+        "{{status}} === 'active'",
+        "{{role}} === 'admin'"
+    ]
+}
+```
+---
+
+## Supported Operators
+
+| Operator | Description | Example |
+| :--- | :--- | :--- |
+| `===` | Strict Equality | `{{id}} === 'value'` |
+| `!==` | Strict Inequality | `{{id}} !== 'value'` |
+| `==` | Equality (loose) | `{{id}} == 1` |
+| `!=` | Inequality (loose) | `{{id}} != 1` |
+| `>` | Greater Than | `{{width}} > 100` |
+| `>=` | Greater/Equal | `{{width}} >= 100` |
+| `<` | Less Than | `{{width}} < 50` |
+| `<=` | Less/Equal | `{{width}} <= 50` |
+| `in` | Value exists in set | `{{type}} in { 'a', 'b' }` |
+| `!in` | Value NOT in set | `{{type}} !in { 'a', 'b' }` |
+| `contains` | Array var contains value | `{{tags}} contains 'new'` |

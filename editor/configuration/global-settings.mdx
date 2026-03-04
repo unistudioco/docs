@@ -1,0 +1,45 @@
+---
+title: "Global Settings"
+description: "Define the core default design tokens for the template."
+---
+
+The `global_settings` object establishes the core default design tokens (colors, typography, etc.) for the template.
+
+```json squeditor.json
+"global_settings": {
+    "global_colors": {
+        "primary": "#048676",
+        "secondary": "#fbf7f5",
+        "text": "#1f2937",
+        "background": "#ffffff"
+    },
+    "global_fonts": {
+        "heading": "Sunsive",
+        "body": "Sunsive"
+    }
+}
+```
+
+<Expandable title="global_colors Properties" defaultOpen>
+  <ParamField path="primary" type="string" required>
+    Main brand tint for prominent UI elements.
+  </ParamField>
+  <ParamField path="secondary" type="string" required>
+    Alternative brand tint or accent color.
+  </ParamField>
+  <ParamField path="text" type="string" required>
+    Base body text color.
+  </ParamField>
+  <ParamField path="background" type="string" required>
+    Base background canvas color.
+  </ParamField>
+</Expandable>
+
+<Expandable title="global_fonts Properties" defaultOpen>
+  <ParamField path="heading" type="string" required>
+    Font family applied to `h1`-`h6` elements.
+  </ParamField>
+  <ParamField path="body" type="string" required>
+    Font family applied to standard text like `p` elements.
+  </ParamField>
+</Expandable>

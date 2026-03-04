@@ -1,0 +1,61 @@
+---
+title: "Theme Configuration"
+description: "Map global settings to visual layout controls in the editor."
+---
+
+The `theme_config` object maps your global settings to visual layout controls (color pickers, font dropdowns) in the editor's "Theme Settings" panel.
+
+```json squeditor.json
+"theme_config": {
+    "accordions": [
+        {
+            "id": "global_colors",
+            "label": "Global Colors",
+            "default_open": true,
+            "controls": [
+                {
+                    "id": "primary",
+                    "label": "Primary Brand",
+                    "type": "color",
+                    "default": "#048676"
+                }
+            ]
+        }
+    ]
+}
+```
+
+<Expandable title="properties" defaultOpen>
+    <ParamField path="accordions" type="array" required>
+      Defines the accordion groups shown in the editor's left panel.
+      <Expandable title="Accordion item format">
+        <ParamField path="id" type="string" required>
+          A unique identifier for the accordion group.
+        </ParamField>
+        <ParamField path="label" type="string" required>
+          The human-readable label shown in the UI.
+        </ParamField>
+        <ParamField path="default_open" type="boolean">
+          Starts the accordion expanded by default if set to `true`.
+        </ParamField>
+        <ParamField path="controls" type="array" required>
+          An array of specific editing controls grouped within.
+        </ParamField>
+      </Expandable>
+    </ParamField>
+</Expandable>
+
+<Expandable title="Controls Structure">
+    <ParamField path="id" type="string" required>
+      The specific control identifier targeting a variable or CSS selector.
+    </ParamField>
+    <ParamField path="label" type="string" required>
+      The descriptive name of the input field.
+    </ParamField>
+    <ParamField path="type" type="string" required>
+      The input GUI type (e.g., `color`, `typography`).
+    </ParamField>
+    <ParamField path="default" type="any">
+      The initial base value for the input.
+    </ParamField>
+</Expandable>

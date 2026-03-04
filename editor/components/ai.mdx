@@ -1,0 +1,81 @@
+---
+title: "AI"
+description: "Configure how editor controls automatically generate copy or images using AI."
+---
+
+Squeditor natively supports interacting with AI models (like Gemini) to assist users in writing content or generating images. By attaching the `ai_config` object to an eligible control, you can define the type of generation, provide boilerplate prompts, and limit boundaries.
+
+You only need to define `ai_config` once per control schema. 
+
+<Note>AI generation is currently only supported by three control types: <Badge color="blue">text</Badge>, <Badge color="blue">textarea</Badge>, and <Badge color="blue">media</Badge>.</Note>
+
+## Text / Textarea AI Configuration
+
+Used to instantly generate headlines or body copy.
+
+```json squeditor.json
+{
+  "id": "heading_text",
+  "label": "Heading",
+  "type": "text",
+  "ai_enabled": true,
+  "ai_config": {
+    "type": "headline",
+    "max_length": 40,
+    "prompt": "Generate a compelling headline for a SaaS business tool",
+    "variations": 3
+  }
+}
+```
+
+<Expandable title="properties" defaultOpen>
+  <ParamField path="type" type="string" required>
+    The text generation type. Usually `"headline"` for short copy or `"body_text"` for paragraphs.
+  </ParamField>
+  <ParamField path="max_length" type="number">
+    The maximum character length the AI should try to adhere to.
+  </ParamField>
+  <ParamField path="prompt" type="string">
+    The baseline context prompt passed to the AI model. The user can tweak this in Squeditor.
+  </ParamField>
+  <ParamField path="variations" type="number">
+    The number of unique text options the AI should return for the user to pick from.
+  </ParamField>
+</Expandable>
+
+---
+
+## Media AI Configuration
+
+Used to generate images based on prompts directly into the Canvas.
+
+```json squeditor.json
+{
+  "id": "user_image",
+  "label": "Image",
+  "type": "media",
+  "media_type": "image",
+  "ai_enabled": true,
+  "ai_config": {
+    "type": "image",
+    "aspect_ratio": "16:9",
+    "prompt": "A modern startup office building...",
+    "variations": 4
+  }
+}
+```
+
+<Expandable title="properties" defaultOpen>
+  <ParamField path="type" type="string" required>
+    Must be `"image"`.
+  </ParamField>
+  <ParamField path="aspect_ratio" type="string">
+    Desired image crop ratio (e.g., `"16:9"`, `"1:1"`, `"4:3"`).
+  </ParamField>
+  <ParamField path="prompt" type="string">
+    Base descriptive prompt for the image generation request.
+  </ParamField>
+  <ParamField path="variations" type="number">
+    The number of unique image alternatives to return.
+  </ParamField>
+</Expandable>

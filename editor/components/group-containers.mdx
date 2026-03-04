@@ -1,0 +1,83 @@
+---
+title: "Group Containers"
+description: "Tabs and Accordions are the main groupping containers for organizing your template's editor capabilities."
+---
+
+## Tabs
+
+Squeditor UI uses a strict 3-level hierarchy to organize controls. Understanding this structure is key to creating a clean editing experience. 
+
+The top-level containers are **Tabs**.
+
+<Note>You can only use these IDs: <Badge color="blue">content</Badge>, <Badge color="blue">style</Badge>, and <Badge color="blue">advanced</Badge>, but you can change their labels.</Note>
+
+```json squeditor.json
+{
+  "id": "content",
+  "label": "Content",
+  "accordions": [ ... ]
+},
+{
+  "id": "style",
+  "label": "Style",
+  "accordions": [ ... ]
+},
+{
+  "id": "advanced",
+  "label": "Advanced",
+  "accordions": [ ... ]
+}
+```
+
+**Structure**
+
+<Expandable title="properties" defaultOpen>
+    <ParamField path="id" type="string" required>
+    Unique identifier for the tab (e.g., `"content"`, `"style"`, `"advanced"`).
+    </ParamField>
+
+    <ParamField path="label" type="string" required>
+    The display name shown in the panel tabs of Squeditor interface. 
+    </ParamField>
+
+    <ParamField path="accordions" type="array" required>
+    An array of nested `Accordion` objects used to group related controls. <br /><br />
+    Learn more about  [Accordions](/editor/components/accordions).
+    </ParamField>
+</Expandable>
+
+---
+
+## Accordions
+
+Accordions are the middle layer of Squeditor interface hierarchy (Tabs > Accordions > Controls). They group functionally related inputs—like "Typography", "Spacing", or "Colors"—to keep the sidebar clean and organized for the end-user.
+
+```json squeditor.json
+{
+  "id": "hero_text",
+  "label": "Hero Text",
+  "default_open": true,
+  "controls": [ ... ]
+}
+```
+
+**Structure**
+
+<Expandable title="properties" defaultOpen>
+  <ParamField path="id" type="string" required>
+    Unique identifier for the accordion within its specific tab.
+  </ParamField>
+
+  <ParamField path="label" type="string" required>
+    The title text displayed on the collapsible accordion header.
+  </ParamField>
+
+  <ParamField path="default_open" type="boolean">
+    If set to `true`, the accordion will be expanded when the tab is first opened. Useful for the most critical settings in a section.
+  </ParamField>
+
+  <ParamField path="controls" type="array" required>
+    An array of Control objects (such as `text`, `color`, `media`) that map to editable properties in the HTML section. <br /><br />
+    Learn more about  [Controls](/editor/components/controls).
+  </ParamField>
+</Expandable>
