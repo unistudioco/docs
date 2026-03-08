@@ -12,7 +12,7 @@
   },
   "favicon": "/favicon.svg",
   "banner": {
-    "content": "🚀 Squeditor Beta is now live! See our [changelog](/editor/changelog) for details.",
+    "content": "🚀 <b>Coming Soon:</b> Squeditor - Build professional HTML websites with no-code, [Join the waitlist](https://squeditor.com/).",
     "dismissible": true
   },
   "styling": {
@@ -127,7 +127,7 @@
     "links": [
       {
         "label": "Talk to us",
-        "href": "mailto:hi@squeditor.com"
+        "href": "mailto:hey.squeditor@gmail.com"
       }
     ],
     "primary": {

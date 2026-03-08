@@ -2,10 +2,95 @@
 title: "Contributing"
 icon: "people-group"
 iconType: "duotone"
+description: "Learn how to contribute to the Squeditor Framework."
+mode: "center"
 ---
 
-Contributions to Squeditor Framework are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) for more details.
+Contributions to Squeditor Framework are **WELCOME**! We are thrilled that you want to contribute to the framework. Whether it's reporting a bug, proposing a feature, or submitting a pull request, your help is deeply appreciated.
+
+Please read this guide to understand our development process and how you can get involved.
 
 ## Code of Conduct
 
-We are committed to providing a friendly, safe, and welcoming environment for all, regardless of gender, sexual orientation, disability, ethnicity, religion, or similar personal characteristic. We expect all contributors to abide by our [Code of Conduct](CODE_OF_CONDUCT.md).
+We are committed to providing a friendly, safe, and welcoming environment for all. We expect all contributors to abide by our Code of Conduct. Please ensure your interactions in issues and pull requests remain respectful and constructive.
+
+## Ways to Contribute
+
+### 1. Report Bugs
+
+If you find a bug in the Squeditor Framework, please report it by opening an issue on our [GitHub repository](https://github.com/unistudioco/squeditor-framework/issues). 
+
+Before submitting a bug report:
+* Check if the issue has already been reported.
+* Ensure you are testing against the latest version.
+* Include detailed steps to reproduce the issue.
+* Provide relevant logs, snippets, or temporary repository links.
+
+### 2. Suggest Features
+
+Have an idea to improve the framework? We'd love to hear it! 
+
+You can submit your ideas by creating an issue on our [GitHub repository](https://github.com/unistudioco/squeditor-framework/issues). Before suggesting a feature, clearly describe the problem it solves and offer any possible implementation details you have in mind.
+
+### 3. Submit Pull Requests
+
+We welcome code contributions! If you have code to submit, please follow our pull request process:
+
+1. **Fork the Repository**: Fork the [Squeditor repository](https://github.com/unistudioco/squeditor-framework) to your own GitHub account.
+2. **Create a Branch**: Create a new branch for your feature or bugfix. Use a descriptive name like `feature/add-new-slider` or `fix/navigation-bug`.
+3. **Make Changes**: Implement your changes. Ensure you follow our code style and add tests where applicable.
+4. **Commit Formatting**: We recommend using [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) for your commit messages.
+   * `feat: added a new component`
+   * `fix: resolved layout issue in the builder`
+   * `docs: updated the contributing guide`
+5. **Push and Open a PR**: Push your changes to your fork and submit a Pull Request against the `main` branch of the original repository.
+
+## Development Setup
+
+To work on the Squeditor Framework locally, follow these steps:
+
+<Steps>
+  <Step title="Clone the repository">
+    ```bash
+    git clone https://github.com/unistudioco/squeditor-framework.git
+    ```
+  </Step>
+  <Step title="Scaffold the project">
+    ```bash
+    npm run scaffold <your-project-name>
+    ```
+  </Step>
+  <Step title="Install dependencies">
+    We use `npm` as our package manager.
+    ```bash
+    npm install
+    ```
+  </Step>
+  <Step title="Start the development server">
+    ```bash
+    npm run dev
+    ```
+    This will start the local development environment so you can test your changes.
+    <Note>
+      The default port is 3001. If it is already in use, it will try 3002, 3003, and so on.
+      Use the PHP built-in server to run the project for ex: <Badge color="blue">localhost:3001</Badge>
+    </Note>
+  </Step>
+</Steps>
+
+## Documentation Contributions
+
+If you find typos, missing information, or confusing sections in our documentation, you can contribute directly to our docs repository! We use Mintlify for our documentation.
+
+* Find the corresponding `.mdx` file in the `docs` folder.
+* Make your changes using Mintlify components.
+* Submit a pull request with the `docs:` prefix in your commit message.
+
+## Need Help?
+
+If you need any assistance while contributing, feel free to reach out to us:
+* Join our [Slack Community](https://squeditor.slack.com/community) or [Discord Community](https://discord.gg/squeditor)
+* Submit a question via [Support](https://squeditor.com/support)
+* Check out our [FAQ](https://squeditor.com/faq)
+
+Thank you for helping to make the **Squeditor Framework** better!

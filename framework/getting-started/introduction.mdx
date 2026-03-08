@@ -49,9 +49,41 @@ export const HeroCard = ({ image, title, description, href }) => {
      The Framework's Documentation
     </h1>
 
-    <p className="mt-4 text-lg text-gray-500 dark:text-zinc-500">
+    <p className="mt-4 text-lg text-gray-500 dark:text-zinc-500 mb-8 lg:mb-12">
       **Squeditor Framework** is a static HTML website framework and build system explicitly designed to bring robust, modular development practices (like those found in WordPress or React) into pure flat-file HTML deliverables.
     </p>
+
+    <h3 className="block text-xl font-medium text-center text-gray-900 dark:text-zinc-50 tracking-tight mb-8"> Showcasing the Framework</h3>
+    <Columns cols={2}>
+    <div className="mt-4">
+      <Frame caption="Main Demo">
+        <a href="https://squeditor.com/showcase/main-demo/" target="_blank" rel="noopener noreferrer" className="link">
+          <img src="/images/soon.jpg" alt="Editor" className="pointer-events-none" />
+        </a>
+      </Frame>
+    </div>
+    <div className="mt-4">
+      <Frame caption="GSAP Animations">
+        <a href="https://squeditor.com/showcase/gsap-animations/" target="_blank" rel="noopener noreferrer" className="link">
+          <img src="/images/soon.jpg" alt="Editor" className="pointer-events-none" />
+        </a>
+      </Frame>
+    </div>
+    <div className="mt-4">
+      <Frame caption="Components">
+        <a href="https://squeditor.com/showcase/all-components/" target="_blank" rel="noopener noreferrer" className="link">
+          <img src="/images/soon.jpg" alt="Editor" className="pointer-events-none" />
+        </a>
+      </Frame>
+    </div>
+    <div className="mt-4">
+      <Frame caption="Style Guide">
+        <a href="https://squeditor.com/showcase/style-guide/" target="_blank" rel="noopener noreferrer" className="link">
+          <img src="/images/soon.jpg" alt="Editor" className="pointer-events-none" />
+        </a>
+      </Frame>
+    </div>
+    </Columns>
   </div>
 
   <div className="relative z-10 px-4 py-16 max-w-3xl mx-auto">

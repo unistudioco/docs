@@ -5,22 +5,34 @@ icon: "memo"
 iconType: "duotone"
 ---
 
-<Update label="v1.1.0" description="March 24, 2026">
-### Overview
-Squeditor Framework v1.1.0 introduces significant improvements to the web editor, including new search functionality, drag-and-drop table creation, and enhanced API playground capabilities.
-
+<Update label="v1.0.3" description="March 06, 2026">
 ### Improvements
-- New search functionality in the web editor makes it easier to find and navigate to files across your documentation.
-- Drag to add table rows and columns directly in the editor for faster table creation and modification.
-- The API playground now supports audio response examples, making it easier to document audio-related API endpoints.
+- feat: implement GSAP animations and styling updates in the index and header, and remove the Swiper slider component.
+- feat: Add GSAP FOUC protection and enhanced timeline controls, and refactor component loading to conditionally include slider CSS.
+- feat: centralize slider CSS generation and rename main CSS output for clearer distribution.
+- feat: Introduce page globbing for page resolution, restructure the customer package into src and dist directories, and improve framework snapshot, dev and packaging scripts
+- feat: Implement dynamic theme detection, enhance build process with improved path handling, and add safety checks for customer packaging.
+- feat: Introduce Swiper and Splide slider components with dynamic initialization, styling, and build system integration.
+- docs: Add full documentation link, remove old heading and important note, and correct build section number in README.
 
-### Bug fixes
-- Fixed layout shift issues in the Sequoia theme.
-- Fixed logout timeout issues.
-- Fixed accordion ID deduplication to prevent duplicate anchor links.
-- Improved SVG sanitization for better security.
+### Bug Fixes
+- fix: framework snapshot, dev and packaging scripts.
+- fix: resolve issue with slider CSS not being included in the main CSS output.
 </Update>
 
-<Update label="v1.0.0" description="March 20, 2026">
+<Update label="v1.0.2" description="March 06, 2026">
+### Improvements
+- feat: scaffold script now installs local framework core, utilizing an enhanced copyDirectory with an ignore list.
+- docs: Streamline Getting Started guide by removing manual clone instructions and reordering steps.
+</Update>
+
+<Update label="v1.0.1" description="March 05, 2026">
+### Improvements
+- feat: Adopt scoped package name, update CLI command, and enhance package metadata for publishing.
+- feat: simplify project scaffolding by adding package.json and enabling npx command.
+- feat: Introduce a comprehensive project template with build scripts, configuration, and core assets for the Squeditor framework.
+</Update>
+
+<Update label="v1.0.0" description="March 04, 2026">
     Initial Release of Squeditor Framework
 </Update>
