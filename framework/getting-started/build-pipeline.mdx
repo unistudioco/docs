@@ -36,4 +36,25 @@ It reads your `squeditor.config.js`, evaluates the `components[]` array, and che
 Vite intercepts the CSS pipeline. It transpiles your SCSS architecture into pure CSS and executes Tailwind plugins via PostCSS based on your `tailwind.config.js`.
 
 ### 3. The Snapshot Crawler (`snapshot.js`)
-Since the site uses `.php` endpoints locally, the snapshot crawler boots up a temporary local PHP server on port 3000. It visits every URL listed in your `squeditor.config.js` `pages` array, pulls the raw HTML natively, heavily rewrites internal links (converting `<a href="contact.php">` into `<a href="contact.html">`), and saves everything cleanly into the `dist/` folder.
+The snapshot crawler boots up a temporary local PHP server, visits every URL listed in your configuration, rewrites internal links, and saves flat `.html` files into the `dist/` folder.
+
+## Modular Scripting Core
+
+To make the framework "Developer Friendly," the build system is powered by a modular utility layer in `squeditor-framework/scripts/utils/`:
+
+-   **`core.js`**: Centralized configuration loading and common helpers (`findPrettier`, `safeMkdir`, `stripDevContent`).
+-   **`cli-ui.js`**: A standardized UI library for premium terminal output with progress bars, headers, and icons.
+
+### Extending the Pipeline
+
+You can easily add your own scripts to the pipeline. Inherit the core logic by importing the shared utilities:
+
+```javascript
+const { projectRoot, config } = require('./utils/core');
+const ui = require('./utils/cli-ui');
+
+ui.header('Custom Task');
+ui.step('Analyzing something special...', 'star');
+// Your logic...
+ui.success('Done!');
+```

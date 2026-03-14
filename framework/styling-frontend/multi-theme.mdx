@@ -5,68 +5,186 @@ icon: "swatchbook"
 iconType: "duotone"
 ---
 
-Squeditor templates can support drastically different visual identities simultaneously using the nested `themes` configuration object. This is exceptionally useful when you need to showcase a single component system mapped into entirely different client aesthetics or when you want to create multi-purpose templates.
+Squeditor allows you to manage multiple visual identities (branding, colors, typography) within a single codebase. This is achieved by mapping specific pages to discrete SCSS theme files and applying scoped CSS variables via a dedicated configuration.
 
-## Configuration
+## 1. The Configuration
 
-Instead of maintaining separate codebase forks, you declare targeted page arrays mapped directly to discrete SCSS override files within your `squeditor.config.js`.
+Themes are defined in `squeditor.config.js`. Each theme entry controls how a specific set of pages is styled and packaged.
 
 ```javascript squeditor.config.js
-
 module.exports = {
-  // ...
   themes: {
-    'agency': {
-      label: 'Agency Theme',
-      bodyClass: 'theme-agency',
-      scss: 'src/assets/scss/themes/_agency.scss',
-      pages: ['/', '/about.php', '/services.php'],
-      distSubfolder: 'demo-agency',
+    'modern': {
+      label: 'Modern Blue',
+      bodyClass: 'theme-modern',           // The class added to <body>
+      scss: 'src/assets/scss/themes/_modern.scss', // The entry point for this theme
+      pages: ['index.php', 'about.php'],   // Pages that use this theme
+      distSubfolder: '',                    // Subfolder in dist/ for these files
     },
     'saas': {
-      label: 'SaaS Theme',
+      label: 'Saas Tech',
       bodyClass: 'theme-saas',
       scss: 'src/assets/scss/themes/_saas.scss',
-      pages: ['/landing.php', '/pricing.php'],
-      distSubfolder: 'demo-saas',
-    },
-  },
-  
-  // The theme rendering currently active during the local PHP dev server
-  activeTheme: 'agency', 
+      pages: ['saas-landing.php'],
+      distSubfolder: 'saas-demo',          // Packaged separately in dist/saas-demo
+    }
+  }
 }
 ```
 
-## Handles Overrides
+### Property Reference
 
-During the `npm run build:css` step, the Squeditor `build-components.js` script dynamically rewrites the last import in your `src/assets/scss/main.scss` framework file.
+| Property | Type | Description |
+| :--- | :--- | :--- |
+| `Theme Slug` | `string` | The unique ID (key) for the theme (e.g., `'saas'`). Used in URL parameters and internal mapping. |
+| `label` | `string` | The human-readable name. |
+| `bodyClass` | `string` | The CSS class applied to the `<body>` tag. All theme-specific SCSS variables are scoped to this class. |
+| `scss` | `string` | Path to the theme's SCSS entry point. |
+| `pages` | `array` | List of `.php` files (relative to `src/`) that should default to this theme. Use `'*'` to match all. |
+| `distSubfolder` | `string` | (Optional) Subdirectory within `dist/` where this theme's static files will be saved during build, great for multi-purpose template. |
 
-### Inside `main.scss`
+## 2. The Theme SCSS File
+
+Each theme SCSS file uses the `sq-theme` mixin. This mixin automatically generates scoped CSS variables (`--sq-*`) for both light and dark modes, applied to your theme's `bodyClass`.
+
+```scss src/assets/scss/themes/_saas.scss
+@include sq-theme(
+    $selector: '.theme-saas',
+    $colors: (
+        'primary':      #271f20,
+        'secondary':    #c3152f,
+        'accent':       #fe7c72,
+        'body-bg':      #ffffff,
+        'body-text':    #1b1516,
+    ),
+    $dark-colors: (
+        'primary':      #f8f5f0,
+        'body-bg':      #1b1516,
+        'body-text':    #f3f4f6,
+    ),
+    $overrides: (
+        // Applied to BOTH Light and Dark unless specified otherwise
+        'heading-font-weight':    600,
+        'heading-line-height':    1.1,
+        'heading-letter-spacing': -0.05em,
+        'btn-radius':             0.75rem,
+        // Optional Typography Presets
+        'font-sans': "'Vidaloka', serif",
+        'font-heading': "'Vidaloka', serif",
+    ),
+    $dark-overrides: (
+        // Applied ONLY in Dark Mode
+        // (Use this to tweak weights or spacing that looks different on dark backgrounds)
+        'heading-font-weight':    400, 
+    )
+) {
+    // Custom SCSS logic for this theme
+    // Note: Use this only for complex niche-specific layout rules.
+    // Logic-based token overrides should stay in the maps above.
+}
+```
+
+### Advanced Token Customization
+
+Squeditor provides two maps for fine-grained token control:
+
+1.  **`$overrides`**: Use this for tokens that should change globally for this theme (e.g., a "rounded" theme where everything has `btn-radius: 50rem`).
+2.  **`$dark-overrides`**: Use this for tokens that specifically need adjustment in dark mode. For example, some fonts look thicker on dark backgrounds, so you might want to drop `heading-font-weight` from `600` (global) to `400` (dark only).
+
+#### Why use Tokens vs. Manual CSS?
+
+If you update @[_base.scss](file:///Users/macbookpro/showcase/src/assets/scss/_base.scss) (or the framework defaults) to use tokens:
 
 ```scss
+/* _base.scss */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: var(--sq-heading-font-weight, 700);
+}
+```
+
+Then your theme files stay incredibly lean because you're just changing the **data** (the variable value), and the framework handles the **delivery** (scoping it to the right body class and light/dark scheme).
+
+| Token Slug | CSS Property | Common Values |
+| :--- | :--- | :--- |
+| `heading-font-weight` | `font-weight` | `300` (Light), `600` (Semi-Bold), `700` (Bold) |
+| `heading-line-height` | `line-height` | `1`, `1.1`, `1.2` |
+| `heading-letter-spacing` | `letter-spacing` | `-0.02em`, `-0.05em` |
+| `btn-radius` | `border-radius` | `0rem` (Sharp), `0.5rem` (Soft), `99rem` (Pill) |
+| `navbar-nav-gap` | `gap` | `1rem` (Compact), `2.5rem` (Spacious) |
+
+## 3. How It Works
+
+** Token Override Mechanism **
+Squeditor uses a "last-in-wins" approach. During the build process, the framework dynamically rewrites the last `@import` in your `main.scss` to target the active theme:
+
+```scss
+/* main.scss */
 @import 'tokens';
 @import 'base';
 @import 'components';
-@import 'uikit-overrides';
 @import 'utilities';
 
-// DO NOT edit the line below manually. It is dynamically rewritten by the compiler to target the active theme.
-@import 'themes/agency'; 
+// REWRITTEN BY COMPILER
+@import 'themes/saas'; 
 ```
 
-Since the target theme block loads last, its root `--sq-*` tokens completely override entirely every preceding design token organically.
+Since the theme file imports last, its CSS variables override all global defaults seamlessly.
 
-## Production Isolation
+** Theme Detection **
+The framework identifies the active theme in `src/init.php` based on:
+1.  **URL Query**: `?theme=id` (highest priority)
+2.  **Page Mapping**: Matches the current PHP file against the `pages` array in your config.
+3.  **Default**: Falls back to the first theme in your config if no match is found.
 
-When `npm run build:snap` generates your static HTML snapshot deliverables, the crawler reads your `themes` array recursively. 
+## Demo Mode & Theme Switcher
 
-It generates entirely separate directories in your `/dist` output for each theme, evaluating exactly only the specific `pages` array declared for that specific design system without leaking dependencies.
+If `$site['demo_mode'] = true` is set in your configuration, the **Theme Switcher** UI will appear. This allows users to manually cycle through your defined palettes and typography presets in the browser, overriding the default theme via query parameters and localStorage.
 
-```text
-/dist
-  /demo-agency
-    index.html
-    about.html
-  /demo-saas
-    landing.html
+## Playground: Common Scenarios
+
+** Scenario A: Single Niche, Multiple Visual Styles **
+Use this when building one template (e.g., a Portfolio) that you want to offer in multiple "flavors" (Clean, Bold, Pastel). All versions share the same pages.
+
+```javascript
+themes: {
+  'clean': {
+    label: 'Clean Minimal',
+    bodyClass: 'theme-clean',
+    scss: 'src/assets/scss/themes/_clean.scss',
+    pages: ['index.php', 'about.php', 'work.php'],
+    distSubfolder: '', // Deployed to root
+  },
+  'bold': {
+    label: 'High Contrast',
+    bodyClass: 'theme-bold',
+    scss: 'src/assets/scss/themes/_bold.scss',
+    pages: ['index.php', 'about.php', 'work.php'],
+    distSubfolder: 'demo-bold', // Accessible at /demo-bold/index.html
+  }
+}
 ```
+
+** Scenario B: Multi-Niche with Subdirectories **
+Use this when your project contains entirely different niches (e.g., Medical, SaaS, Creative) within a single showcase. Each niche has its own assets and separate distribution output.
+
+```javascript
+themes: {
+  'medical': {
+    label: 'Medical Dental',
+    bodyClass: 'theme-medical',
+    scss: 'src/assets/scss/themes/_medical.scss',
+    pages: ['medical/index.php', 'medical/services.php'],
+    distSubfolder: 'medical-demo', 
+  },
+  'saas': {
+    label: 'Professional Tech',
+    bodyClass: 'theme-saas',
+    scss: 'src/assets/scss/themes/_saas.scss',
+    pages: ['saas/index.php', 'saas/features.php'],
+    distSubfolder: 'saas-demo', 
+  }
+}
+```
+In this scenario, the build pipeline generates a clean `dist/` structure:
+- `dist/medical-demo/index.html` (Styled with Medical theme)
+- `dist/saas-demo/index.html` (Styled with SaaS theme)

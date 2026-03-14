@@ -5,6 +5,68 @@ icon: "memo"
 iconType: "duotone"
 ---
 
+<Update label="v1.0.8" description="March 14, 2026">
+### Improvements
+- feat: Overhaul theme engine with `$overrides` and `$dark-overrides` Sass maps for foundational, granular token control.
+- feat: Introduce 4-Stage Build sequence (build:css -> build:snap -> build:zip -> build:customer) for lean, professional handouts.
+- feat: Integrate a comprehensive Theme & Typography Preset switcher into the `project-template` scaffold for rapid prototyping.
+- feat: Modularize offcanvas system into a standalone `offcanvas.php` template part, decoupled from the header for greater flexibility.
+- feat: Implement dark mode FOUC (Flash of Unstyled Content) prevention script in `base.php` to ensure seamless loading.
+- feat: Reimplement theme management with separate Vite-compiled SCSS entry points for faster builds and cleaner isolation.
+- feat: Implement high-fidelity responsive heading scale (text-h2 -> text-h1 -> text-display-6) across the project scaffold.
+- feat: Add high-fidelity header parameters (`$isDark`, `$isFloat`) for professional dynamic layout control.
+- feat: Synchronize design tokens across `_config.scss` and `_tokens.scss` for centralized customization.
+- feat: Enable professional media optimization and blur defaults in `squeditor.config.js`.
+- feat: Add RGB CSS variables for all color tokens to support Tailwind opacity modifiers and update related SCSS utilities.
+- feat: Refactor SCSS tokens to explicitly support light mode, extending theme-two styles to light mode.
+- feat: Enhance build script to support HTML subfolders and compartmentalized `distSubfolder` mapping.
+- feat: Introduce and integrate `cli-ui` utility for standardized and enhanced command-line output across scripts.
+- feat: Implement conditional content stripping for dev/demo blocks and enhance font asset handling across build scripts.
+- feat: Propagate framework improvements to AI skills (`.agent/skills`), including specialized landing page instructions.
+
+### Refactors & Internal
+- refactor: Centralize common utility functions and constants into a new `core.js` module for framework-wide reuse.
+- refactor: Improve Prettier execution logic and error reporting in the packaging pipeline.
+- refactor: Refine theme switcher and unassigned theme removal regex to handle varied HTML tag formatting.
+- feat: Sync documentation with new typography token patterns and advanced `$overrides` map examples.
+
+### Bug Fixes
+- fix: Ensure heading font-weight correctly inherits from `--sq-heading-font-weight` token across all themes.
+- fix: Refine CLI experience with silent ZIP output and improved build phase headers.
+</Update>
+
+<Update label="v1.0.7" description="March 13, 2026">
+### Improvements
+- feat: Implement Splide auto-scroll functionality for high-end slider interactions.
+- feat: Add a new video utility for simplified video embedding and self-hosted management.
+- feat: Enhance SVG class handling to allow easier styling of icons and graphics.
+- feat: Refine UI styling across multiple components to ensure a more polished, high-fidelity look.
+</Update>
+
+<Update label="v1.0.6" description="March 12, 2026">
+### Improvements
+- docs: Overhaul README with clearer, more concise setup and installation instructions for new developers.
+- docs: Update directory structure documentation and add new documentation links for easier framework navigation.
+- feat: Bump package version to reflect significant internal updates and build fixes.
+</Update>
+
+<Update label="v1.0.5" description="March 10, 2026">
+### Improvements
+- feat: Enhance typography system by integrating CSS variables for centralized, flexible font management.
+- feat: Improve Vite's Hot Module Replacement (HMR) for CSS to significantly speed up the development loop.
+- feat: Update project scaffolding and configuration to support the latest framework architectural features.
+- refactor: Standardize component naming and styling conventions for improved consistency across pages.
+</Update>
+
+<Update label="v1.0.4" description="March 08, 2026">
+### Improvements
+- feat: Configure Tailwind screens and typography for more robust, high-fidelity responsive scaling.
+- feat: Introduce new container and form icon components to improve layout management and structure.
+- docs: Enhance README with detailed information about AI agent features and showcase project links.
+- feat: Update default button sizes and styling to better align with the new design system.
+</Update>
+
+
 <Update label="v1.0.3" description="March 06, 2026">
 ### Improvements
 - feat: implement GSAP animations and styling updates in the index and header, and remove the Swiper slider component.

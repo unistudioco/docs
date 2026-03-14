@@ -30,29 +30,20 @@ When you scaffold a new template, your working environment (`my-project/`) handl
 
 <Card>
 <Tree>
-  <Tree.Folder name="my-project" defaultOpen>
-    <Tree.File name="squeditor.config.js" />
-    <Tree.File name="tailwind.config.js" />
-    <Tree.File name="vite.config.js" />
-    <Tree.Folder name="src" defaultOpen>
-      <Tree.Folder name="config" />
-      <Tree.Folder name="data" />
-      <Tree.Folder name="assets" defaultOpen>
-        <Tree.Folder name="scss" />
-        <Tree.Folder name="js" />
-        <Tree.Folder name="static" />
+  <Tree.Folder name="[workspace-root]" defaultOpen>
+    <Tree.Folder name="squeditor-framework" defaultOpen>
+      <Tree.Folder name="scripts" defaultOpen>
+        <Tree.Folder name="utils" />
+        <Tree.File name="build-components.js" />
+        <Tree.File name="snapshot.js" />
+        <Tree.File name="dev.js" />
       </Tree.Folder>
-      <Tree.Folder name="template-parts" />
-      <Tree.Folder name="components" />
-      <Tree.Folder name="sections" />
-      <Tree.Folder name="page-templates" />
-      <Tree.Folder name="pages" />
-      <Tree.File name="style-guide.php" />
+      <Tree.File name="uikit-manifest.json" />
     </Tree.Folder>
-    <Tree.Folder name="dist" defaultOpen>
-      <Tree.File name="index.html" />
-      <Tree.File name="about.html" />
-      <Tree.Folder name="assets" />
+    <Tree.Folder name="my-project" defaultOpen>
+      <Tree.File name="squeditor.config.js" />
+      <Tree.Folder name="src" />
+      <Tree.Folder name="dist" />
     </Tree.Folder>
   </Tree.Folder>
 </Tree>

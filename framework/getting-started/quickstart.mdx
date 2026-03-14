@@ -12,14 +12,14 @@ Follow these steps to set up your workspace, scaffold a new project, and start d
   <Step title="Scaffold a New Project">
     Squeditor Framework includes a robust CLI scaffolding tool. It generates a completely clean, minimalist project instance fully pre-configured to utilize the advanced GSAP and UIKit engines without demo bloat.
 
-    To scaffold your new project, simply run the following command in your terminal:
+    To scaffold your new project and install `@squeditor-framework`, simply run the following command in your terminal:
 
     ```bash > Terminal
     npx @squeditor/squeditor-framework your-project-name
     ```
 
     ### Alternative: Manual Setup
-    If you prefer to set up the project manually, you can clone the Squeditor Framework repository via:
+    If you prefer to set up the project manually, you can clone the framework repository via:
 
     ```bash > Terminal
     git clone https://github.com/unistudioco/squeditor-framework.git
@@ -28,16 +28,10 @@ Follow these steps to set up your workspace, scaffold a new project, and start d
     Then, scaffold a new project using this:
 
     ```bash > Terminal
-    node squeditor-framework/scripts/scaffold.js your-project-name
-    ```
-    
-    Or (if you are in the root folder):
-
-    ```bash > Terminal
-    node ./squeditor-framework/scripts/scaffold.js your-project-name
+    npm run scaffold your-project-name
     ```
 
-    *(Replace `your-project-name` with your desired folder name).*
+    <Note>Replace <Badge color="blue">your-project-name</Badge> with your desired project name.</Note>
   </Step>
   <Step title="Development">
     Navigate into your newly generated project folder, install its dependencies, and start the development server:
@@ -57,7 +51,7 @@ Follow these steps to set up your workspace, scaffold a new project, and start d
     </Warning>
   </Step>
   <Step title="Build for Production">
-    Generate the static `dist/` folder and a distributable ZIP archive:
+    This will generate the static `dist/` folder and a distributable ZIP archive:
 
     ```bash > Terminal
     npm run build

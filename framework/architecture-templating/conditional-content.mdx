@@ -1,0 +1,57 @@
+---
+title: "Conditional Content"
+description: "How to manage developmental and demo-specific code visibility using comment markers."
+---
+
+Squeditor provides a simple yet powerful system for stripping specific blocks of code or content during the build process. This ensures that developer-only tools, debug scripts, or demo-specific UI elements do not leak into the final distribution or customer packages.
+
+## Comment Markers
+
+The framework identifies blocks to be stripped using specific comment pairs. These markers are supported in **HTML**, **PHP**, **JavaScript**, and **CSS**.
+
+### 1. `DEV ONLY`
+Content wrapped in these markers is **always stripped** during any distribution build (`npm run build`). Use this for local-only helpers, design overlays, or debug logging.
+
+**HTML / PHP:**
+```html
+<!-- DEV ONLY START -->
+<div class="local-grid-overlay">...</div>
+<!-- DEV ONLY END -->
+```
+
+**JavaScript / CSS:**
+```javascript
+// DEV ONLY START
+console.log('Project Root:', projectRoot);
+// DEV ONLY END
+
+/* DEV ONLY START */
+.debug-outlines * { outline: 1px solid red; }
+/* DEV ONLY END */
+```
+
+### 2. `DEMO MODE ONLY`
+Content wrapped in these markers is stripped **only during the customer package assembly** (`package-customer.js`). It remains visible in the `dist/` distribution build. Use this for theme switchers, demo-specific notices, or watermarks.
+
+**HTML / PHP:**
+```html
+<!-- DEMO MODE ONLY START -->
+<?php get_template_part('theme-switcher'); ?>
+<!-- DEMO MODE ONLY END -->
+```
+
+**JavaScript / CSS:**
+```javascript
+// DEMO MODE ONLY START
+initThemeSwitcher();
+// DEMO MODE ONLY END
+```
+
+## How It Works
+
+The build scripts (`package-customer.js` and `snapshot.js`) utilize core utility functions to process these markers:
+
+1.  **`stripDevContent(content)`**: Uses regex to remove all blocks between `DEV ONLY START` and `DEV ONLY END`.
+2.  **`stripDemoContent(content)`**: Uses regex to remove all blocks between `DEMO MODE ONLY START` and `DEMO MODE ONLY END`.
+
+By using these markers, you can maintain a single codebase while cleanly managing the output for different deployment targets.

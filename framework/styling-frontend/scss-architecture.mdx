@@ -28,8 +28,8 @@ The entry point for SCSS is always `src/assets/scss/main.scss`. The file imports
 
 | Layer | Description |
 |---|---|
-| `_config.scss`, `_functions.scss` | The foundational programmatic layers. These house Sass maps, breakpoint variables, and custom SCSS functions/mixins used natively throughout the rest of the compilation process. |
-| `_tokens.scss` | Acts as the universal design registry setting global CSS custom properties.<br />*ex:* Define `--sq-color-primary`, `--sq-font-sans`, `--sq-radius-md`. |
+| `_config.scss`, `_functions.scss` | The foundational programmatic layers. **_config.scss is the Design Dashboard**, housing Sass variables and maps for colors, typography, spacing, radius, and shadows. |
+| `_tokens.scss` | The **Generation Layer**. It takes properties from `_config.scss` and emits them as global CSS custom properties. You rarely need to edit this file. |
 | `_base.scss` | Document-level resets extending standard normalizing behavior.<br />*ex:* HTML/Body typography baseline, generic `a` tag hover transitions. |
 | `_uikit_dynamic.scss` | Dynamic variables specifically bridging Squeditor tokens into the UIKit3 SCSS ecosystem before the main components compile. |
 | `_uikit-overrides.scss` | Overriding default UIKit3 styles. Because UIKit generates massive specificity, we dedicate a specific layer entirely to resolving `.uk-modal-dialog` or `.uk-offcanvas-bar` overrides using our custom properties. |

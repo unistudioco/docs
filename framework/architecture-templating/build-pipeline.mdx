@@ -1,0 +1,58 @@
+---
+title: 'Build Pipeline'
+description: 'Understanding the Squeditor Framework build and distribution scripts.'
+---
+
+Squeditor Framework uses a series of Node.js scripts to handle component building, static site generation, and packaging. These scripts are located in the `squeditor-framework/scripts` directory and are designed to be modular and developer-friendly.
+
+## Script Architecture
+
+The scripts share a common set of utilities located in `scripts/utils/`:
+
+-   **`core.js`**: Centralized configuration loading, path resolution, and common helpers (e.g., `findPrettier`, `safeMkdir`, `stripDevContent`).
+-   **`cli-ui.js`**: A premium CLI interface utility providing consistent headers, icons, and progress indicators.
+-   **`resolve-pages.js`**: Logic for resolving page globs based on the project structure.
+
+## Core Scripts
+
+### 1. `dev.js`
+The development entry point. It starts the PHP built-in server (with `dev-router.php`) and the Vite dev server. It also watches `squeditor.config.js` to rebuild dynamic components on the fly.
+
+### 2. `build-components.js`
+Responsible for generating the distribution files from your UIKit3 components. It concatenates JS, processes SCSS variables, and generates per-theme CSS entries.
+
+### 3. `snapshot.js`
+Captures static HTML snapshots of your PHP pages. It boots a temporary PHP server, fetches all pages defined in your configuration, rewrites links for offline use, and formats the output with Prettier.
+
+### 4. `copy-static.js`
+Copies images, videos, and fonts from `src/` to `dist/`. It also performs image and video optimization (if enabled in `squeditor.config.js`).
+
+### 5. `package-dist.js`
+Creates a clean distribution ZIP of the `dist/` folder, ready for deployment.
+
+### 6. `package-customer.js`
+Assembles the "Customer Package" — a simplified version of the project that includes both the source PHP files and the compiled static site, typically used for final delivery to clients.
+
+## Extending the Pipeline
+
+Each script is designed to be easily readable. If you need to add custom build steps, you can create a new script in `scripts/` and import the core utilities:
+
+```javascript
+const { projectRoot, config, safeMkdir } = require('./utils/core');
+const ui = require('./utils/cli-ui');
+
+async function myCustomTask() {
+    ui.header('Custom Task');
+    ui.step('Doing something creative...', 'star');
+    // Your logic here
+    ui.success('Task complete!');
+}
+
+myCustomTask();
+```
+
+## Developer Tips
+
+-   **Verbose Logs**: Most scripts now have minimized output by default for a cleaner experience.
+-   **Error Handling**: Scripts use `ui.error()` to provide consistent, readable error messages.
+-   **Configuration**: All script behaviors are governed by `squeditor.config.js`. Always check your config before modifying the scripts themselves.
