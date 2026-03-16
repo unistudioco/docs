@@ -5,6 +5,36 @@ icon: "memo"
 iconType: "duotone"
 ---
 
+<Update label="v1.1.0" description="March 16, 2026">
+### Features
+- feat: Customer package builder (`package-customer.js`) is now fully generic — `tailwind.config.js`, `postcss.config.js`, `.prettierrc`, dependencies, and SCSS globals are all derived from the project's own files instead of being hardcoded in the framework.
+- feat: Pre-compiled CSS and static assets are discovered dynamically from `dist/` — any file a developer adds flows through automatically without touching the framework.
+- feat: Added `customerDevDeps` option in `squeditor.config.js` to extend the customer devDependencies without editing framework scripts.
+- feat: `uikit-components.js` moved to `public/` so Vite never attempts to bundle it.
+- feat: Customer `dist/` is pre-populated with compiled JS so it works immediately without requiring `npm run build`.
+- feat: FOUC prevention injected into customer `src/` HTML for clean dev-mode experience.
+
+### Fixes
+- fix: Eliminated all Vite build warnings — `uikit-components.js` bundling warning, font `@font-face` resolution warnings, and static asset URL warnings.
+- fix: Fixed theme switcher styles leaking into customer HTML.
+- fix: Fixed `<!-- Vite FOUC Prevention -->` comment surviving into customer `dist` HTML.
+- fix: Fixed CSS load order and spacing in post-build HTML rewriter to match framework dist format exactly.
+- fix: Fixed several scoping and variable shadowing bugs in customer package scripts.
+
+### Affected Files
+- `scripts/package-customer.js`
+- `scripts/rewrite-dist-html.js`
+- `src/template-parts/theme-switcher.php`
+- `squeditor.config.js` (new optional field: `customerDevDeps`)
+</Update>
+
+<Update label="v1.0.9" description="March 15, 2026">
+### Improvements
+- feat: Refactor FOUC prevention, optimize script loading, and enhance build process for Vite development and production HTML.
+- feat: Move `uikit-components.js` to `<head>` and relocate FOUC script to prevent theme flicker on load.
+- refactor: Improve script initialization order in `head.php` and `base.php`.
+</Update>
+
 <Update label="v1.0.8" description="March 14, 2026">
 ### Improvements
 - feat: Overhaul theme engine with `$overrides` and `$dark-overrides` Sass maps for foundational, granular token control.
