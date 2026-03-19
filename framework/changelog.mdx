@@ -5,6 +5,28 @@ icon: "memo"
 iconType: "duotone"
 ---
 
+
+<Update label="v1.1.1" description="March 18, 2026">
+### Features
+- feat: Implement a fully modular deployment utility (`scripts/utils/deploy.js`) to support automated preview deployments to Vercel and Netlify during the packaging phase.
+- feat: Use `squeditor.config.js` to add custom deployment providers. Each provider requires a name, a CLI command, and optional setup tips ([Learn more](/framework/getting-started/deployment#adding-custom-providers)).
+- feat: Integrate the deployment script into `package-dist.js` and update `squeditor.config.js` with new `deploy` configuration options (`deploy.enabled` and `deploy.platform`).
+
+### Fixes
+- fix: Enhance the theme switcher (`theme-switcher.php`) class toggling logic to accurately sync the `.sq-theme-dark` class on the root `<html>` element as well as the `<body>` element, ensuring Tailwind CSS dark mode selectors operate consistently across the interface.
+- fix: Update `base.php` FOUC script to reliably apply and persist dynamic schema styling upon page initialization without being incorrectly overridden by hardcoded PHP classes.
+
+### Affected Files
+- `package.json`
+- `squeditor.config.js`
+- `src/page-templates/base.php`
+- `src/template-parts/theme-switcher.php`
+- `scripts/package-dist.js`
+
+### New Files
+- `scripts/utils/deploy.js`
+</Update>
+
 <Update label="v1.1.0" description="March 16, 2026">
 ### Features
 - feat: Customer package builder (`package-customer.js`) is now fully generic — `tailwind.config.js`, `postcss.config.js`, `.prettierrc`, dependencies, and SCSS globals are all derived from the project's own files instead of being hardcoded in the framework.
@@ -23,9 +45,11 @@ iconType: "duotone"
 
 ### Affected Files
 - `scripts/package-customer.js`
-- `scripts/rewrite-dist-html.js`
 - `src/template-parts/theme-switcher.php`
 - `squeditor.config.js` (new optional field: `customerDevDeps`)
+
+### New Files
+- `scripts/rewrite-dist-html.js`
 </Update>
 
 <Update label="v1.0.9" description="March 15, 2026">

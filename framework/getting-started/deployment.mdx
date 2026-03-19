@@ -5,26 +5,88 @@ icon: "rocket-launch"
 iconType: "duotone"
 ---
 
-## Deploying & Archiving
+The `npm run build` command initiates a comprehensive production pipeline. The framework transforms your dynamic templates into a static HTML snapshot, optimizes global assets, and generates a professional distribution archive—eliminating the need for manual file manipulation or complex server configurations.
 
-Once you execute the `npm run build` command, the framework evaluates the HTML snapshot and automatically calls the `squeditor/scripts/package-dist.js` archiver. 
-
-This guarantees sealed deliverables ready for handoff without manual file manipulation.
-
-## The Archiver Generation
-
-Squeditor navigates the `dist/` directory and creates a clean `<project-name>-dist.zip` package file securely inside the root directory. This contains the flat HTML files, the compiled CSS/JS assets, and the copied static folder (images, fonts).
+This ensures you have a consistent, "sealed" deliverable ready for immediate hand-off or automated deployment to the edge.
 
 ## Automated Host Deployment
 
-Squeditor integrates directly with modern Node deployers (Netlify or Vercel). Upon generating the final ZIP deliverable, the script reads your deployment preference.
+Squeditor features a modular, provider-based deployment system that integrates with modern static hosting platforms like **Netlify** and **Vercel**. By default, deployment is disabled to ensure builds succeed in all environments without forcing CLI installations.
+
+## Configuration
+
+Deployment settings are managed in `squeditor.config.js` under the `deploy` key where you can setup or define custom providers.
 
 ```javascript squeditor.config.js
-  // Distribution routing instructions
-  dist: {
-    zipName: 'my-project-dist.zip',
-    previewPlatform: 'vercel', // options: 'netlify' or 'vercel'
-  },
+module.exports = {
+    // ... other config
+    deploy: {
+        enabled: true,           // Set to true to enable automated deployment
+        platform: 'netlify',     // 'netlify' or 'vercel'
+        
+        // Optional: Define custom providers or override defaults
+        providers: {
+            s3: {
+                name: 'AWS S3',
+                command: 'aws s3 sync dist/ s3://my-bucket-name',
+                installTip: 'pip install awscli',
+                loginTip: 'aws configure'
+            }
+        }
+    }
+}
 ```
 
-If set to `vercel`, the framework runs `vercel deploy --dir=dist --open`, which uploads the static flat HTML files to a temporary Edge URL and automatically launches it in your default web browser for immediate client review.
+## Setup Requirements
+
+Before enabling deployment, ensure you have the required CLI tools installed and you are logged in locally.
+
+### Netlify
+- **Install CLI:** `npm install -g netlify-cli`
+- **Login:** `netlify login`
+- **First Run:** Run `netlify init` in your project folder once to link it to a site.
+
+### Vercel
+- **Install CLI:** `npm install -g vercel`
+- **Login:** `vercel login`
+- **First Run:** Run `vercel` in your project folder once to link it to a project.
+
+## Adding Custom Providers
+
+You can extend the framework by adding custom providers to the `providers` object. Each provider requires a `name`, a CLI `command`, and optional setup tips.
+
+```javascript squeditor.config.js
+deploy: {
+    enabled: true,
+    platform: 'firebase',
+    providers: {
+        firebase: {
+            name: 'Firebase Hosting',
+            command: 'firebase deploy --only hosting',
+            installTip: 'npm install -g firebase-tools',
+            loginTip: 'firebase login && firebase init'
+        },
+        s3: {
+            name: 'AWS S3',
+            command: 'aws s3 sync dist/ s3://my-bucket-name',
+            installTip: 'pip install awscli',
+            loginTip: 'aws configure'
+        },
+        fly: {
+            name: 'Fly.io',
+            command: 'fly deploy',
+            installTip: 'curl -L https://fly.io/install.sh | sh',
+            loginTip: 'fly auth login && fly launch'
+        }
+    }
+}
+```
+
+## Troubleshooting
+
+If deployment fails, the build script will provide helpful hints based on the selected platform. 
+
+1. **CLI Missing:** Ensure the provider's CLI is installed globally.
+2. **Auth Error:** Ensure you are logged in (`netlify status` or `vercel whoami`).
+3. **Link Error:** Ensure the project is linked to the platform (run `init` or the base command once manually).
+4. **Manual Debug:** Run the `command` specified in your config manually in your terminal to see raw error output.
