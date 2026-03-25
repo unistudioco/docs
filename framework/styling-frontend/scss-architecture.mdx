@@ -34,11 +34,11 @@ The entry point for SCSS is always `src/assets/scss/main.scss`. The file imports
 | `_uikit_dynamic.scss` | Dynamic variables specifically bridging Squeditor tokens into the UIKit3 SCSS ecosystem before the main components compile. |
 | `_uikit-overrides.scss` | Overriding default UIKit3 styles. Because UIKit generates massive specificity, we dedicate a specific layer entirely to resolving `.uk-modal-dialog` or `.uk-offcanvas-bar` overrides using our custom properties. |
 | `_components.scss` | Custom Squeditor component styles which Tailwind struggles to bundle cleanly.<br />*ex:* `.sq-card`, `.sq-hero-overlay`, `.sq-accordion-active`. |
-| `_utilities.scss` | Unique helper classes and UI patches not covered natively by Tailwind or the overarching component system.<br />*ex:* Complex clip-paths, hardware-accelerated transforms, or `.scrollbar-hide`. |
+| `_utilities.scss` | CSS-only helper classes not natively covered by Tailwind.<br />*ex:* Typography gradients, complex clip-paths, or `.scrollbar-hide`. Note that background classes requiring variants (like `hover:sq-bg-primary`) are registered as plugins directly inside `tailwind.config.js` instead of here. |
 | `themes/*.scss` | `themes/default` provides the fallback tokens, while specific child themes (`showcase`, `saas`, `agency`) are swapped dynamically by `build-components.js` per build target. |
 | `_custom.scss` | The **absolute highest specificity layer**, loading last. Use this for specific client overrides and final project-specific CSS patches that must forcefully cascade over themes and components. |
 
-```scss themes/_showcase.scss
+```scss themes/showcase.scss
 // Overriding Layer 2 Tokens
 :root {
   --sq-color-primary: #FF0000;

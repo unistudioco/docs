@@ -1,0 +1,107 @@
+---
+title: "Custom Utilities"
+description: "Reference guide for built-in custom SCSS classes and Tailwind extensions."
+icon: "wand-magic-sparkles"
+iconType: "duotone"
+---
+
+Squeditor extends Tailwind CSS with a suite of custom utility classes mapped to the project's foundational CSS variables. These utilities support native Tailwind variants (`hover:`, `dark:`, `/opacity`, etc.) and works seamlessly and magically to create stunning and professional multi-theme websites.
+
+### Theme Backgrounds
+
+These classes feature **built-in auto contrast**. When applied, they don't just change the background color—they automatically calculate and apply the correct text color to ensure perfect legibility, regardless of what theme is currently active.
+
+<ParamField path="sq-bg-primary" type="bg: rgb(--sq-color-primary-rgb)">
+  Primary background, auto-shifts text to match `--sq-color-primary-contrast`.
+</ParamField>
+
+<ParamField path="sq-bg-secondary" type="bg: rgb(--sq-color-secondary-rgb)">
+  Secondary background, auto-shifts text to match `--sq-color-secondary-contrast`.
+</ParamField>
+
+<ParamField path="sq-bg-accent" type="bg: rgb(--sq-color-accent-rgb)">
+  Accent background, auto-shifts text to match `--sq-color-accent-contrast`.
+</ParamField>
+
+```html Example
+<div class="sq-bg-primary p-8 rounded-xl">
+  <h3 class="text-h3 font-bold mb-2 text-inherit">Auto Contrast in Action</h3>
+  <p class="opacity-80">
+    This text automatically shifts to a readable contrast color because of the parent sq-bg-primary class.
+  </p>
+</div>
+```
+
+<Note>
+  User `text-inherit` to forces an element to inherit the parent contrast color established by the theme backgrounds above.
+</Note>
+
+### Theme Colors
+
+These utilities are essential for the framework's **multi-theme and auto light/dark schema** engine. Because they map to CSS variables rather than hardcoded hex values, the entire site's color palette can swap instantly based on user preferences or the active theme.
+
+<ParamField path="primary, secondary, accent" type="rgb(var(--sq-color-*-rgb) / <alpha-value>)">
+  Brand color palette. Supports opacity modifiers natively (e.g. `bg-primary/50`).
+</ParamField>
+
+<ParamField path="body, muted" type="rgb(var(--sq-color-*-rgb) / <alpha-value>)">
+  Structural semantic backgrounds and muted text panes.
+</ParamField>
+
+<ParamField path="light, dark" type="rgb(var(--sq-color-*-rgb) / <alpha-value>)">
+  Specific light/dark mode forced backgrounds.
+</ParamField>
+
+```html Example
+<div class="bg-body p-6 border border-primary/20 rounded-lg">
+  <span class="text-accent font-mono text-sm uppercase tracking-wide">New Feature</span>
+  <h4 class="text-heading text-h4 mt-2 mb-4">Multi-theme enabled content</h4>
+  <button class="bg-primary hover:bg-secondary text-white px-4 py-2 rounded transition-colors">
+    Get Started
+  </button>
+</div>
+```
+
+### Text Sizes
+
+<ParamField path="text-display-{1-6}" type="Sizes: 8rem -> 3.5rem">
+  Massive display header sizes. Pre-configured tightly with negative tracking (`letter-spacing`) to ensure visual punch.
+</ParamField>
+
+<ParamField path="text-h{1-6}" type="Sizes: 3rem -> 1rem">
+  Standard heading sizing scale. Sized responsively and pre-configured with tight tracking.
+</ParamField>
+
+```html Example
+<div class="flex flex-col gap-4">
+  <h1 class="text-display-4 font-bold">Massive Hero Headline</h1>
+  <h2 class="text-h2 text-heading">Standard Section Title</h2>
+  <h3 class="text-h5 text-muted uppercase tracking-wider">Small Eyebrow Text</h3>
+</div>
+```
+
+### Text Fonts
+
+<ParamField path="font-sans" type="var(--sq-font-sans)">
+  The primary sans-serif framework font defined in the styling dashboard.
+</ParamField>
+
+<ParamField path="font-serif" type="var(--sq-font-serif)">
+  The secondary serif framework font.
+</ParamField>
+
+<ParamField path="font-mono" type="var(--sq-font-mono)">
+  The active monospace framework font.
+</ParamField>
+
+```html Example
+<article class="font-sans">
+  <h2 class="font-serif text-h3 italic mb-4">A Serif Heading for Elegance</h2>
+  <p class="text-body mb-4">
+    Our standard sans-serif font is highly legible for long-form reading and structural layout.
+  </p>
+  <code class="font-mono bg-muted px-2 py-1 rounded">
+    npm install @squeditor/framework
+  </code>
+</article>
+```

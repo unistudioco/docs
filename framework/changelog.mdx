@@ -6,15 +6,33 @@ iconType: "duotone"
 ---
 
 
+<Update label="v1.1.2" description="March 24, 2026">
+### Features
+- Registered `sq-bg-primary`, `sq-bg-secondary`, and `sq-bg-accent` as a Tailwind CSS plugin. This enables full support for all Tailwind variant modifiers (`hover:`, `dark:`, `group-[*]`, etc.) while maintaining auto-contrast functionality via CSS variables.
+
+### Refactors
+- Simplified `_utilities.scss` by shifting background and color logic to the Tailwind configuration, enabling a more standard Tailwind experience.
+- Introduced the `sq-highlight` gradient text utility for cross-theme headline accents.
+- Optimized `_base.scss` typography and selection styling to be more robust and theme-consistent.
+
+### Docs
+- Added [Custom Utilities](/framework/styling-frontend/custom-utilities) as a reference guide for built-in custom SCSS classes.
+
+### Affected Files
+- `tailwind.config.js`
+- `src/assets/scss/_utilities.scss`
+- `src/assets/scss/_base.scss`
+</Update>
+
 <Update label="v1.1.1" description="March 18, 2026">
 ### Features
-- feat: Implement a fully modular deployment utility (`scripts/utils/deploy.js`) to support automated preview deployments to Vercel and Netlify during the packaging phase.
-- feat: Use `squeditor.config.js` to add custom deployment providers. Each provider requires a name, a CLI command, and optional setup tips ([Learn more](/framework/getting-started/deployment#adding-custom-providers)).
-- feat: Integrate the deployment script into `package-dist.js` and update `squeditor.config.js` with new `deploy` configuration options (`deploy.enabled` and `deploy.platform`).
+- Implement a fully modular deployment utility (`scripts/utils/deploy.js`) to support automated preview deployments to Vercel and Netlify during the packaging phase.
+- Use `squeditor.config.js` to add custom deployment providers. Each provider requires a name, a CLI command, and optional setup tips [Learn more](/framework/getting-started/deployment#adding-custom-providers).
+- Integrate the deployment script into `package-dist.js` and update `squeditor.config.js` with new `deploy` configuration options (`deploy.enabled` and `deploy.platform`).
 
 ### Fixes
-- fix: Enhance the theme switcher (`theme-switcher.php`) class toggling logic to accurately sync the `.sq-theme-dark` class on the root `<html>` element as well as the `<body>` element, ensuring Tailwind CSS dark mode selectors operate consistently across the interface.
-- fix: Update `base.php` FOUC script to reliably apply and persist dynamic schema styling upon page initialization without being incorrectly overridden by hardcoded PHP classes.
+- Enhance the theme switcher (`theme-switcher.php`) class toggling logic to accurately sync the `.sq-theme-dark` class on the root `<html>` element as well as the `<body>` element, ensuring Tailwind CSS dark mode selectors operate consistently across the interface.
+- Update `base.php` FOUC script to reliably apply and persist dynamic schema styling upon page initialization without being incorrectly overridden by hardcoded PHP classes.
 
 ### Affected Files
 - `package.json`
@@ -29,19 +47,19 @@ iconType: "duotone"
 
 <Update label="v1.1.0" description="March 16, 2026">
 ### Features
-- feat: Customer package builder (`package-customer.js`) is now fully generic — `tailwind.config.js`, `postcss.config.js`, `.prettierrc`, dependencies, and SCSS globals are all derived from the project's own files instead of being hardcoded in the framework.
-- feat: Pre-compiled CSS and static assets are discovered dynamically from `dist/` — any file a developer adds flows through automatically without touching the framework.
-- feat: Added `customerDevDeps` option in `squeditor.config.js` to extend the customer devDependencies without editing framework scripts.
-- feat: `uikit-components.js` moved to `public/` so Vite never attempts to bundle it.
-- feat: Customer `dist/` is pre-populated with compiled JS so it works immediately without requiring `npm run build`.
-- feat: FOUC prevention injected into customer `src/` HTML for clean dev-mode experience.
+- Customer package builder (`package-customer.js`) is now fully generic — `tailwind.config.js`, `postcss.config.js`, `.prettierrc`, dependencies, and SCSS globals are all derived from the project's own files instead of being hardcoded in the framework.
+- Pre-compiled CSS and static assets are discovered dynamically from `dist/` — any file a developer adds flows through automatically without touching the framework.
+- Added `customerDevDeps` option in `squeditor.config.js` to extend the customer devDependencies without editing framework scripts.
+- `uikit-components.js` moved to `public/` so Vite never attempts to bundle it.
+- Customer `dist/` is pre-populated with compiled JS so it works immediately without requiring `npm run build`.
+- FOUC prevention injected into customer `src/` HTML for clean dev-mode experience.
 
 ### Fixes
-- fix: Eliminated all Vite build warnings — `uikit-components.js` bundling warning, font `@font-face` resolution warnings, and static asset URL warnings.
-- fix: Fixed theme switcher styles leaking into customer HTML.
-- fix: Fixed `<!-- Vite FOUC Prevention -->` comment surviving into customer `dist` HTML.
-- fix: Fixed CSS load order and spacing in post-build HTML rewriter to match framework dist format exactly.
-- fix: Fixed several scoping and variable shadowing bugs in customer package scripts.
+- Eliminated all Vite build warnings — `uikit-components.js` bundling warning, font `@font-face` resolution warnings, and static asset URL warnings.
+- Fixed theme switcher styles leaking into customer HTML.
+- Fixed `<!-- Vite FOUC Prevention -->` comment surviving into customer `dist` HTML.
+- Fixed CSS load order and spacing in post-build HTML rewriter to match framework dist format exactly.
+- Fixed several scoping and variable shadowing bugs in customer package scripts.
 
 ### Affected Files
 - `scripts/package-customer.js`
@@ -54,99 +72,99 @@ iconType: "duotone"
 
 <Update label="v1.0.9" description="March 15, 2026">
 ### Improvements
-- feat: Refactor FOUC prevention, optimize script loading, and enhance build process for Vite development and production HTML.
-- feat: Move `uikit-components.js` to `<head>` and relocate FOUC script to prevent theme flicker on load.
-- refactor: Improve script initialization order in `head.php` and `base.php`.
+- Refactor FOUC prevention, optimize script loading, and enhance build process for Vite development and production HTML.
+- Move `uikit-components.js` to `<head>` and relocate FOUC script to prevent theme flicker on load.
+- Improve script initialization order in `head.php` and `base.php`.
 </Update>
 
 <Update label="v1.0.8" description="March 14, 2026">
 ### Improvements
-- feat: Overhaul theme engine with `$overrides` and `$dark-overrides` Sass maps for foundational, granular token control.
-- feat: Introduce 4-Stage Build sequence (build:css -> build:snap -> build:zip -> build:customer) for lean, professional handouts.
-- feat: Integrate a comprehensive Theme & Typography Preset switcher into the `project-template` scaffold for rapid prototyping.
-- feat: Modularize offcanvas system into a standalone `offcanvas.php` template part, decoupled from the header for greater flexibility.
-- feat: Implement dark mode FOUC (Flash of Unstyled Content) prevention script in `base.php` to ensure seamless loading.
-- feat: Reimplement theme management with separate Vite-compiled SCSS entry points for faster builds and cleaner isolation.
-- feat: Implement high-fidelity responsive heading scale (text-h2 -> text-h1 -> text-display-6) across the project scaffold.
-- feat: Add high-fidelity header parameters (`$isDark`, `$isFloat`) for professional dynamic layout control.
-- feat: Synchronize design tokens across `_config.scss` and `_tokens.scss` for centralized customization.
-- feat: Enable professional media optimization and blur defaults in `squeditor.config.js`.
-- feat: Add RGB CSS variables for all color tokens to support Tailwind opacity modifiers and update related SCSS utilities.
-- feat: Refactor SCSS tokens to explicitly support light mode, extending theme-two styles to light mode.
-- feat: Enhance build script to support HTML subfolders and compartmentalized `distSubfolder` mapping.
-- feat: Introduce and integrate `cli-ui` utility for standardized and enhanced command-line output across scripts.
-- feat: Implement conditional content stripping for dev/demo blocks and enhance font asset handling across build scripts.
-- feat: Propagate framework improvements to AI skills (`.agent/skills`), including specialized landing page instructions.
+- Overhaul theme engine with `$overrides` and `$dark-overrides` Sass maps for foundational, granular token control.
+- Introduce 4-Stage Build sequence (build:css -> build:snap -> build:zip -> build:customer) for lean, professional handouts.
+- Integrate a comprehensive Theme & Typography Preset switcher into the `project-template` scaffold for rapid prototyping.
+- Modularize offcanvas system into a standalone `offcanvas.php` template part, decoupled from the header for greater flexibility.
+- Implement dark mode FOUC (Flash of Unstyled Content) prevention script in `base.php` to ensure seamless loading.
+- Reimplement theme management with separate Vite-compiled SCSS entry points for faster builds and cleaner isolation.
+- Implement high-fidelity responsive heading scale (text-h2 -> text-h1 -> text-display-6) across the project scaffold.
+- Add high-fidelity header parameters (`$isDark`, `$isFloat`) for professional dynamic layout control.
+- Synchronize design tokens across `_config.scss` and `_tokens.scss` for centralized customization.
+- Enable professional media optimization and blur defaults in `squeditor.config.js`.
+- Add RGB CSS variables for all color tokens to support Tailwind opacity modifiers and update related SCSS utilities.
+- Refactor SCSS tokens to explicitly support light mode, extending theme-two styles to light mode.
+- Enhance build script to support HTML subfolders and compartmentalized `distSubfolder` mapping.
+- Introduce and integrate `cli-ui` utility for standardized and enhanced command-line output across scripts.
+- Implement conditional content stripping for dev/demo blocks and enhance font asset handling across build scripts.
+- Propagate framework improvements to AI skills (`.agent/skills`), including specialized landing page instructions.
 
 ### Refactors & Internal
-- refactor: Centralize common utility functions and constants into a new `core.js` module for framework-wide reuse.
-- refactor: Improve Prettier execution logic and error reporting in the packaging pipeline.
-- refactor: Refine theme switcher and unassigned theme removal regex to handle varied HTML tag formatting.
-- feat: Sync documentation with new typography token patterns and advanced `$overrides` map examples.
+- Centralize common utility functions and constants into a new `core.js` module for framework-wide reuse.
+- Improve Prettier execution logic and error reporting in the packaging pipeline.
+- Refine theme switcher and unassigned theme removal regex to handle varied HTML tag formatting.
+- Sync documentation with new typography token patterns and advanced `$overrides` map examples.
 
 ### Bug Fixes
-- fix: Ensure heading font-weight correctly inherits from `--sq-heading-font-weight` token across all themes.
-- fix: Refine CLI experience with silent ZIP output and improved build phase headers.
+- Ensure heading font-weight correctly inherits from `--sq-heading-font-weight` token across all themes.
+- Refine CLI experience with silent ZIP output and improved build phase headers.
 </Update>
 
 <Update label="v1.0.7" description="March 13, 2026">
 ### Improvements
-- feat: Implement Splide auto-scroll functionality for high-end slider interactions.
-- feat: Add a new video utility for simplified video embedding and self-hosted management.
-- feat: Enhance SVG class handling to allow easier styling of icons and graphics.
-- feat: Refine UI styling across multiple components to ensure a more polished, high-fidelity look.
+- Implement Splide auto-scroll functionality for high-end slider interactions.
+- Add a new video utility for simplified video embedding and self-hosted management.
+- Enhance SVG class handling to allow easier styling of icons and graphics.
+- Refine UI styling across multiple components to ensure a more polished, high-fidelity look.
 </Update>
 
 <Update label="v1.0.6" description="March 12, 2026">
 ### Improvements
-- docs: Overhaul README with clearer, more concise setup and installation instructions for new developers.
-- docs: Update directory structure documentation and add new documentation links for easier framework navigation.
-- feat: Bump package version to reflect significant internal updates and build fixes.
+- Overhaul README with clearer, more concise setup and installation instructions for new developers.
+- Update directory structure documentation and add new documentation links for easier framework navigation.
+- Bump package version to reflect significant internal updates and build fixes.
 </Update>
 
 <Update label="v1.0.5" description="March 10, 2026">
 ### Improvements
-- feat: Enhance typography system by integrating CSS variables for centralized, flexible font management.
-- feat: Improve Vite's Hot Module Replacement (HMR) for CSS to significantly speed up the development loop.
-- feat: Update project scaffolding and configuration to support the latest framework architectural features.
-- refactor: Standardize component naming and styling conventions for improved consistency across pages.
+- Enhance typography system by integrating CSS variables for centralized, flexible font management.
+- Improve Vite's Hot Module Replacement (HMR) for CSS to significantly speed up the development loop.
+- Update project scaffolding and configuration to support the latest framework architectural features.
+- Standardize component naming and styling conventions for improved consistency across pages.
 </Update>
 
 <Update label="v1.0.4" description="March 08, 2026">
 ### Improvements
-- feat: Configure Tailwind screens and typography for more robust, high-fidelity responsive scaling.
-- feat: Introduce new container and form icon components to improve layout management and structure.
-- docs: Enhance README with detailed information about AI agent features and showcase project links.
-- feat: Update default button sizes and styling to better align with the new design system.
+- Configure Tailwind screens and typography for more robust, high-fidelity responsive scaling.
+- Introduce new container and form icon components to improve layout management and structure.
+- Enhance README with detailed information about AI agent features and showcase project links.
+- Update default button sizes and styling to better align with the new design system.
 </Update>
 
 
 <Update label="v1.0.3" description="March 06, 2026">
 ### Improvements
-- feat: implement GSAP animations and styling updates in the index and header, and remove the Swiper slider component.
-- feat: Add GSAP FOUC protection and enhanced timeline controls, and refactor component loading to conditionally include slider CSS.
-- feat: centralize slider CSS generation and rename main CSS output for clearer distribution.
-- feat: Introduce page globbing for page resolution, restructure the customer package into src and dist directories, and improve framework snapshot, dev and packaging scripts
-- feat: Implement dynamic theme detection, enhance build process with improved path handling, and add safety checks for customer packaging.
-- feat: Introduce Swiper and Splide slider components with dynamic initialization, styling, and build system integration.
-- docs: Add full documentation link, remove old heading and important note, and correct build section number in README.
+- Implement GSAP animations and styling updates in the index and header, and remove the Swiper slider component.
+- Add GSAP FOUC protection and enhanced timeline controls, and refactor component loading to conditionally include slider CSS.
+- Centralize slider CSS generation and rename main CSS output for clearer distribution.
+- Introduce page globbing for page resolution, restructure the customer package into src and dist directories, and improve framework snapshot, dev and packaging scripts
+- Implement dynamic theme detection, enhance build process with improved path handling, and add safety checks for customer packaging.
+- Introduce Swiper and Splide slider components with dynamic initialization, styling, and build system integration.
+- Add full documentation link, remove old heading and important note, and correct build section number in README.
 
 ### Bug Fixes
-- fix: framework snapshot, dev and packaging scripts.
-- fix: resolve issue with slider CSS not being included in the main CSS output.
+- Framework snapshot, dev and packaging scripts.
+- Resolve issue with slider CSS not being included in the main CSS output.
 </Update>
 
 <Update label="v1.0.2" description="March 06, 2026">
 ### Improvements
-- feat: scaffold script now installs local framework core, utilizing an enhanced copyDirectory with an ignore list.
-- docs: Streamline Getting Started guide by removing manual clone instructions and reordering steps.
+- Scaffold script now installs local framework core, utilizing an enhanced copyDirectory with an ignore list.
+- Streamline Getting Started guide by removing manual clone instructions and reordering steps.
 </Update>
 
 <Update label="v1.0.1" description="March 05, 2026">
 ### Improvements
-- feat: Adopt scoped package name, update CLI command, and enhance package metadata for publishing.
-- feat: simplify project scaffolding by adding package.json and enabling npx command.
-- feat: Introduce a comprehensive project template with build scripts, configuration, and core assets for the Squeditor framework.
+- Adopt scoped package name, update CLI command, and enhance package metadata for publishing.
+- Simplify project scaffolding by adding package.json and enabling npx command.
+- Introduce a comprehensive project template with build scripts, configuration, and core assets for the Squeditor framework.
 </Update>
 
 <Update label="v1.0.0" description="March 04, 2026">

@@ -16,7 +16,6 @@ Inside each project, the `tailwind.config.js` file is wired directly to resolve 
 **The config file**
 
 ```javascript tailwind.config.js
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -26,22 +25,34 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Mirror AG tokens into Tailwind so devs can use both approaches
-        primary:   'var(--sq-color-primary)',
-        secondary: 'var(--sq-color-secondary)',
-        accent:    'var(--sq-color-accent)',
+        // Semantic colors — support opacity modifiers (bg-body/10)
+        body:    'rgb(var(--sq-color-body-bg-rgb) / <alpha-value>)',
+        muted:   'rgb(var(--sq-color-muted-bg-rgb) / <alpha-value>)',
+        // Brand colors map to RGB channels
+        primary:   'rgb(var(--sq-color-primary-rgb) / <alpha-value>)',
+        secondary: 'rgb(var(--sq-color-secondary-rgb) / <alpha-value>)',
+        accent:    'rgb(var(--sq-color-accent-rgb) / <alpha-value>)',
       },
       fontFamily: {
         sans:  ['var(--sq-font-sans)'],
         serif: ['var(--sq-font-serif)'],
         mono:  ['var(--sq-font-mono)'],
       },
-      spacing: {
-        // Add specific spacing overrides if necessary
-      },
+      // ...
     },
   },
-  plugins: [],
+  plugins: [
+    function({ addUtilities }) {
+      addUtilities({
+        '.sq-bg-primary': {
+          '--sq-contrast-color': 'var(--sq-color-primary-contrast)',
+          'background-color': 'rgb(var(--sq-color-primary-rgb) / var(--tw-bg-opacity, 1))',
+          'color': 'var(--sq-contrast-color)',
+        },
+        // ... secondary & accent
+      })
+    }
+  ],
 }
 ```
 
@@ -49,8 +60,16 @@ module.exports = {
 
 Because the variables evaluate at runtime in the browser as CSS variables:
 
-1. **SCSS defines the style:** `_tokens.scss` assigns `--sq-color-primary: #19191b;` to `:root`.
-2. **Tailwind maps the class:** The config maps `text-primary` to `color: var(--sq-color-primary);`.
-3. **The Browser renders:** The text is #19191b.
+1. **SCSS defines the style channels:** `_tokens.scss` assigns `--sq-color-primary-rgb: 25 25 27;` to `:root`.
+2. **Tailwind maps the class:** The config maps `text-primary` to `color: rgb(var(--sq-color-primary-rgb) / <alpha-value>);`.
+3. **The Browser renders:** It compiles as `color: rgb(25 25 27 / 1)`.
 
-If you generate a new theme override in `themes/_client.scss` that sets `--sq-color-primary: #00FF00;`, Tailwind instantly updates as well without needing to reconfigure the `tailwind.config.js` file.
+If you use an opacity modifier like `bg-primary/50`, Tailwind safely replaces `<alpha-value>` with `0.5`, guaranteeing dynamic transparency that matches the exact active theme variables.
+
+### Custom Plugins (`addUtilities`)
+
+Squeditor relies on the `plugins` array to inject overarching background utilities (like `.sq-bg-primary`).
+
+While you could just define `.sq-bg-primary` inside your `_utilities.scss`, doing so **hides that class from Tailwind's view**. By mapping it through `addUtilities`, Tailwind instantly auto-generates every modifier for those custom styles.
+
+This is why `hover:sq-bg-primary`, `dark:sq-bg-accent`, and `group-[.uk-open]:sq-bg-secondary` work natively without additional CSS.

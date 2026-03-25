@@ -90,6 +90,7 @@
             "pages": [
               "framework/styling-frontend/tailwind-integration",
               "framework/styling-frontend/scss-architecture",
+              "framework/styling-frontend/custom-utilities",
               "framework/styling-frontend/multi-theme"
             ]
           },
